@@ -1,7 +1,7 @@
 package com.hitrontech.hitronencryption;
 
-import com.hitron.net.comment.Log;
 
+import android.util.Log;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.security.MessageDigest;

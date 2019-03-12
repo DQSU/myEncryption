@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="white">#FFFFFF</color>
     <color name="grey_light">#BBBDC0</color>
     <color name="grey">#424142</color>
+
+  <color name="cell_color">#b6d7a8</color>
+  <color name="split_line">#E6E6FA</color>
+  <color name="custom_black">#003300</color>
+  <color name="material_grey">#616161</color>
+  <color name="colorPrimary">@color/greenyBlue</color>
+  <color name="colorPrimaryDark">#cee1f0</color>
+  <color name="colorAccent">#afbeca</color>
+
+  <color name="white">#ffffff</color>
+  <color name="black">#000000</color>
+
+  <color name="text_color_grey">#6c7d84</color>
+  <color name="greenyBlue">#54c694</color>
+  <color name="paleGrey">#f5f9fc</color>
+  <color name="blueyGrey">#8ca4ae</color>
+  <color name="wordRed">#ff5757</color>
 </resources>

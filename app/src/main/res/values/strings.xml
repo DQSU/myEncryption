@@ -1,13 +1,15 @@
 <resources>
-    <string name="app_name">Encryption</string>
-    <string name="plaintext">明文</string>
-    <string name="password">密码</string>
-    <string name="encryption">加密</string>
-    <string name="ciphetext">密文</string>
-    <string name="applicationId">com.hitrontech.myhitron.fidelity</string>
-    <string name="versionCode">17</string>
-    <string name="ht_security_key" translatable="false">eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxNyIsImlzcyI6IkhpdHJvbiIsImlhdCI6MTU1MTMxODkwNywibW9kZWwiOiJDT0RBLTQ1ODkiLCJ2ZW5kb3IiOiJGaWRlbGl0eSIsInNjb3BlIjp7fX0.PpNLhHGLZVt9adr4kyUAmF45mXj8BWJ9U76o0f1NoecsFAtdxxX9s7nyPJDl4V00xTQTvqHA31Q82EPsp28Zd6u9_ojDBcSd8oaWVsFhi7opwxkQICoeRkuIH3YKHdFQ6PWutHh5xR3Yg0oWgWuQGk2KBHFk61OUwIa5Z6P8WT8</string>
-    <string name="decryption">解密</string>
-    <string name="choice">选择</string>
-    <string name="edit">编辑</string>
+  <string name="app_name">Encryption</string>
+  <string name="plainText">明文</string>
+  <string name="password">密码</string>
+  <string name="encryption">加密</string>
+  <string name="cipherText">密文</string>
+  <string name="applicationId">com.hitrontech.myhitron.fidelity</string>
+  <string name="versionCode">17</string>
+  <string name="test_number">12</string>
+  <string name="ht_security_key" translatable="false">eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxMiIsImlzcyI6IkhpdHJvbiIsImlhdCI6MTUyNTkzMTAyNiwibW9kZWwiOiJDT0RBLTQ2ODAiLCJ2ZW5kb3IiOiJGSVoiLCJzY29wZSI6e319.Pq-8gLnn5LCVjphMthF-wi2fGVEiqv3kMy16d2Yq37UmXCKRUBJi2_VrRKrRDDcK08rd0KBmLllYoaO2cDbE7KTZPMF1UbGwd9uIuEHhcAyTSrVB94zxRu-F6NayhFh6G4U8f4XEL0QobIVB57NlrPCDxxXv-oRKH6qGpyLjOck</string>
+  <string name="decryption">解密</string>
+  <string name="choice">选择</string>
+  <string name="edit">编辑</string>
+  <string name="change">Change</string>
 </resources>

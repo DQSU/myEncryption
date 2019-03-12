@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+  <data>
+
+  </data>
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/cipherText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="50"/>
+
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding">
+        <Button
+          android:id="@+id/decryption"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentStart="true"
+          android:background="@color/colorPrimary"
+          android:text="@string/decryption"
+          android:textColor="@color/white"/>
+
+        <Button
+          android:id="@+id/changeCipherText"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentEnd="true"
+          android:background="@color/colorPrimary"
+          android:text="@string/change"
+          android:textColor="@color/white"/>
+      </RelativeLayout>
+
+      <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/plainText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:maxLines="50"/>
+
+    </LinearLayout>
+
+  </ScrollView>
+</layout>
