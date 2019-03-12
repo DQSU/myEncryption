@@ -1,4 +1,4 @@
-package gateway.hitrontech.com.encryption.fragment.EncryptionFragment;
+package gateway.hitrontech.com.encryption.fragment.encryption;
 
 import android.annotation.SuppressLint;
 import android.databinding.DataBindingUtil;
@@ -12,6 +12,7 @@ import com.jakewharton.rxbinding2.view.RxView;
 import com.kryst.njit.base.BaseFragment;
 import gateway.hitrontech.com.encryption.R;
 import gateway.hitrontech.com.encryption.databinding.FragmentEncryptionBinding;
+import gateway.hitrontech.com.encryption.utils.SharePreManager;
 import io.reactivex.functions.Consumer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -77,8 +78,9 @@ public class EncryptionFragment extends BaseFragment implements Contract.View {
   }
 
   @Override
-  public void setEncryptionText(String encryptionText) {
-    mBinding.cipherText.setText(encryptionText);
+  public void setEncryptionText(String cipherText) {
+    SharePreManager.getInstance().setCipherText(cipherText);
+    mBinding.cipherText.setText(cipherText);
   }
 
   @Override

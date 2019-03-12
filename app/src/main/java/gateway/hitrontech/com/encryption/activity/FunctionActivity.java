@@ -13,7 +13,8 @@ import android.view.MenuItem;
 import com.kryst.njit.base.BaseActivity;
 import gateway.hitrontech.com.encryption.R;
 import gateway.hitrontech.com.encryption.databinding.ActivityFunctionBinding;
-import gateway.hitrontech.com.encryption.fragment.EncryptionFragment.EncryptionFragment;
+import gateway.hitrontech.com.encryption.fragment.decryption.DecryptionFragment;
+import gateway.hitrontech.com.encryption.fragment.encryption.EncryptionFragment;
 import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.Subscriber;
@@ -41,7 +42,7 @@ public class FunctionActivity extends BaseActivity {
         new OnNavigationItemSelectedListener() {
           @Override
           public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            DrawerItemClick(menuItem.getTitle().toString());
+            DrawerItemClick((String) menuItem.getTitle());
             return true;
           }
         });
@@ -51,10 +52,10 @@ public class FunctionActivity extends BaseActivity {
 
   @SuppressLint("ResourceType")
   private void DrawerItemClick(String title) {
-    if (title.equals(getString(R.id.encryption))) {
+    if (title.equals(getString(R.string.encryption))) {
       replaceFragment(EncryptionFragment.getInstance());
     } else {
-      // replaceFragment();
+      replaceFragment(DecryptionFragment.getInstance());
     }
   }
 

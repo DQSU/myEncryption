@@ -7,6 +7,8 @@ import gateway.hitrontech.com.encryption.R;
 public class SharePreManager {
 
   private static final String mPreName = "pre_sharePre_encryption";
+
+  private static final String CIPHER_TEXT = "CIPHER_TEXT";
   private static SharePreManager sPreManager;
   private static SharedPreferences sSharedPre;
   private final String mPassword = "password";
@@ -14,7 +16,7 @@ public class SharePreManager {
   private SharePreManager() {
   }
 
-  static SharePreManager getInstance() {
+  public static SharePreManager getInstance() {
     synchronized (SharePreManager.class) {
       if (sSharedPre == null) {
         sPreManager = new SharePreManager();
@@ -39,7 +41,17 @@ public class SharePreManager {
 //    return sSharedPre.getStringSet(mPassword, new TreeSet<String>());
 //  }
 
-  public static String getAppId() {
+  public String getAppId() {
     return WhichContext.getInstance().getString(R.string.applicationId);
   }
+
+  public String getCipherText() {
+    return sSharedPre.getString(CIPHER_TEXT, "");
+  }
+
+  public void setCipherText(String cipherText) {
+    sSharedPre.edit().putString(CIPHER_TEXT, cipherText).apply();
+  }
+
+
 }

@@ -12,7 +12,7 @@
       android:orientation="vertical">
 
       <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/plainText"
+        android:id="@+id/cipherText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="50"/>
@@ -22,16 +22,16 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/padding">
         <Button
-          android:id="@+id/encryption"
+          android:id="@+id/decryption"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_alignParentStart="true"
           android:background="@color/colorPrimary"
-          android:text="@string/encryption"
+          android:text="@string/decryption"
           android:textColor="@color/white"/>
 
         <Button
-          android:id="@+id/changePlainText"
+          android:id="@+id/changeCipherText"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_alignParentEnd="true"
@@ -41,7 +41,7 @@
       </RelativeLayout>
 
       <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/cipherText"
+        android:id="@+id/plainText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:enabled="false"

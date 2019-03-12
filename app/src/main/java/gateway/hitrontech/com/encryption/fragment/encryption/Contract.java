@@ -1,4 +1,4 @@
-package gateway.hitrontech.com.encryption.fragment.EncryptionFragment;
+package gateway.hitrontech.com.encryption.fragment.encryption;
 
 import moe.xing.mvp_utils.BasePresenter;
 import moe.xing.mvp_utils.BaseView;
@@ -12,6 +12,6 @@ interface Contract {
 
   interface View extends BaseView<Presenter> {
 
-    void setEncryptionText(String encryptionText);
+    void setEncryptionText(String cipherText);
   }
 }

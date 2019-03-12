@@ -1,8 +1,8 @@
-package gateway.hitrontech.com.encryption.fragment.EncryptionFragment;
+package gateway.hitrontech.com.encryption.fragment.encryption;
 
 
 import com.hitrontech.hitronencryption.EncryptionManager;
-import gateway.hitrontech.com.encryption.utils.Contants;
+import gateway.hitrontech.com.encryption.utils.Constants;
 import gateway.hitrontech.com.encryption.utils.SharePreManager;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -27,8 +27,8 @@ public class Presenter implements Contract.Presenter {
           @Override
           public Observable<String> call(String text) {
             return Observable.just(EncryptionManager.getInstance().base64EncoderByAppId(
-                SharePreManager.getAppId(),
-                Contants.KEY,
+                SharePreManager.getInstance().getAppId(),
+                Constants.KEY,
                 text
             )).observeOn(Schedulers.io());
           }
