@@ -1,148 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".activity.MainActivity">
+
+  <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activity.MainActivity">
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="17dp"
+    android:layout_marginRight="17dp"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_marginLeft="17dp"
-        android:layout_marginRight="17dp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/plainText"/>
+
+      <EditText
+        android:id="@+id/plaintext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-              android:text="@string/plainText"/>
-
-            <EditText
-                android:id="@+id/plaintext"
-              android:text="@string/test_number"
-                android:textColor="@android:color/black"
-                android:layout_width="match_parent"
-                android:inputType="textMultiLine"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_marginTop="17dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <CheckBox
-                android:id="@+id/editCb"
-                android:textSize="15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="35dp"
-                android:text="@string/edit"/>
-
-          <Button
-            android:id="@+id/changeClearText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/change"/>
-
-          <CheckBox
-                android:id="@+id/choiceCb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="35dp"
-                android:textSize="15sp"
-                android:text="@string/choice"/>
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/passwordLayout"
-            android:layout_marginTop="17dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/password"/>
-
-            <EditText
-                android:id="@+id/password"
-
-              android:textColor="@android:color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <Spinner
-            android:id="@+id/pwdSpinner"
-            android:layout_marginTop="17dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-        </Spinner>
-
-        <Button
-            android:id="@+id/encryption"
-            android:layout_marginTop="17dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/encryption"/>
-
-        <LinearLayout
-            android:layout_marginTop="17dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-              android:text="@string/cipherText"/>
-
-            <EditText
-                android:id="@+id/ciphetext"
-
-              android:textColor="@android:color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/decryption"
-            android:layout_marginTop="17dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/decryption"/>
-
-        <LinearLayout
-            android:layout_marginTop="17dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-              android:text="@string/plainText"/>
-
-            <EditText
-                android:id="@+id/cleartext"
-                android:textColor="@android:color/black"
-                android:layout_width="match_parent"
-                android:inputType="textMultiLine"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+        android:inputType="textMultiLine"
+        android:text="@string/test_number"
+        android:textColor="@android:color/black"/>
     </LinearLayout>
+
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="17dp">
+      <CheckBox
+        android:id="@+id/editCb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_alignParentStart="true"
+        android:text="@string/edit"
+        android:textSize="15sp"/>
+
+      <Button
+        android:id="@+id/changePlainText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/change"/>
+
+      <CheckBox
+        android:id="@+id/choiceCb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="35dp"
+        android:layout_alignParentEnd="true"
+        android:text="@string/choice"
+        android:textSize="15sp"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+      android:id="@+id/passwordLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="17dp"
+      android:orientation="horizontal"
+      android:visibility="gone">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/password"/>
+
+      <EditText
+        android:id="@+id/password"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"/>
+    </LinearLayout>
+
+    <Spinner
+      android:id="@+id/pwdSpinner"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="17dp"
+      android:visibility="gone">
+    </Spinner>
+
+    <Button
+      android:id="@+id/encryption"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="17dp"
+      android:text="@string/encryption"/>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="17dp"
+      android:orientation="horizontal">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cipherText"/>
+
+      <EditText
+        android:id="@+id/ciphetext"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"/>
+    </LinearLayout>
+
+    <Button
+      android:id="@+id/decryption"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="17dp"
+      android:text="@string/decryption"/>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="17dp"
+      android:orientation="horizontal">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/plainText"/>
+
+      <EditText
+        android:id="@+id/cleartext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:textColor="@android:color/black"/>
+    </LinearLayout>
+  </LinearLayout>
 </ScrollView>

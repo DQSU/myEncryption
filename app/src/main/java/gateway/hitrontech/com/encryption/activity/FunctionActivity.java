@@ -15,6 +15,7 @@ import gateway.hitrontech.com.encryption.R;
 import gateway.hitrontech.com.encryption.databinding.ActivityFunctionBinding;
 import gateway.hitrontech.com.encryption.fragment.decryption.DecryptionFragment;
 import gateway.hitrontech.com.encryption.fragment.encryption.EncryptionFragment;
+import gateway.hitrontech.com.encryption.fragment.encryption_decryption.EncryptionDecryptionFragment;
 import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.Subscriber;
@@ -47,15 +48,24 @@ public class FunctionActivity extends BaseActivity {
           }
         });
 
-    replaceFragment(EncryptionFragment.getInstance());
+    replaceFragment(EncryptionDecryptionFragment.getInstance());
   }
 
   @SuppressLint("ResourceType")
   private void DrawerItemClick(String title) {
-    if (title.equals(getString(R.string.encryption))) {
-      replaceFragment(EncryptionFragment.getInstance());
-    } else {
-      replaceFragment(DecryptionFragment.getInstance());
+    // todo international
+    switch (title) {
+      case "加密":
+        replaceFragment(EncryptionFragment.getInstance());
+        break;
+      case "解密":
+        replaceFragment(DecryptionFragment.getInstance());
+        break;
+      case "加密/解密":
+        replaceFragment(EncryptionDecryptionFragment.getInstance());
+        break;
+      default:
+        break;
     }
   }
 
@@ -80,6 +90,9 @@ public class FunctionActivity extends BaseActivity {
         }
 
       }
+      break;
+      default:
+        break;
     }
     return true;
   }
@@ -111,12 +124,10 @@ public class FunctionActivity extends BaseActivity {
         .subscribe(new Subscriber<Long>() {
           @Override
           public void onCompleted() {
-
           }
 
           @Override
           public void onError(Throwable e) {
-
           }
 
           @Override

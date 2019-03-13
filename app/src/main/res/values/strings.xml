@@ -12,4 +12,7 @@
   <string name="choice">选择</string>
   <string name="edit">编辑</string>
   <string name="change">Change</string>
+  <string name="changeKey">修改KEY</string>
+  <string name="key">KEY</string>
+  <string name="encryption_decryption">加密/解密</string>
 </resources>
