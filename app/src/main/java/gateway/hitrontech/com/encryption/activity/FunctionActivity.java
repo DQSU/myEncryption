@@ -16,6 +16,7 @@ import gateway.hitrontech.com.encryption.databinding.ActivityFunctionBinding;
 import gateway.hitrontech.com.encryption.fragment.decryption.DecryptionFragment;
 import gateway.hitrontech.com.encryption.fragment.encryption.EncryptionFragment;
 import gateway.hitrontech.com.encryption.fragment.encryption_decryption.EncryptionDecryptionFragment;
+import gateway.hitrontech.com.encryption.fragment.file_encryption_decryption.FileEncryptionDecryptionFragment;
 import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.Subscriber;
@@ -48,7 +49,7 @@ public class FunctionActivity extends BaseActivity {
           }
         });
 
-    replaceFragment(EncryptionDecryptionFragment.getInstance());
+    replaceFragment(FileEncryptionDecryptionFragment.getInstance());
   }
 
   @SuppressLint("ResourceType")
@@ -63,6 +64,9 @@ public class FunctionActivity extends BaseActivity {
         break;
       case "加密/解密":
         replaceFragment(EncryptionDecryptionFragment.getInstance());
+        break;
+      case "文件加密/解密":
+        replaceFragment(FileEncryptionDecryptionFragment.getInstance());
         break;
       default:
         break;
