@@ -1,4 +1,4 @@
-package gateway.hitrontech.com.encryption;
+package gateway.hitrontech.com.encryption.bean;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
