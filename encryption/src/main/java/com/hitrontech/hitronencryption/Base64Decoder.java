@@ -1,7 +1,6 @@
 package com.hitrontech.hitronencryption;
 
 import android.text.TextUtils;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FilterInputStream;

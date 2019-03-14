@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+  <data>
+
+    <variable
+      name="bean"
+      type="gateway.hitrontech.com.encryption.EncryptionBean"/>
+  </data>
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/padding"
+    android:padding="@dimen/padding"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.AppCompatEditText
+      android:id="@+id/plainText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/padding"
+      android:text="@{bean.plainText}"
+      tools:lines="5"/>
+
+    <android.support.v7.widget.AppCompatEditText
+      android:id="@+id/cipherText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/padding"
+      android:enabled="false"
+      android:text="@{bean.cipherText}"
+      tools:lines="5"/>
+
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/padding">
+      <Button
+        android:id="@+id/decryption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/button"
+        android:text="@string/decryption"/>
+    </RelativeLayout>
+
+    <TextView
+      android:id="@+id/decryptionText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/padding"
+      tools:lines="5"/>
+  </LinearLayout>
+
+
+</layout>

@@ -4,6 +4,14 @@
   android:layout_height="wrap_content">
 
   <item
+    android:id="@+id/file_encryption_decryption"
+    android:title="@string/file_encryption_decryption"/>
+
+  <item
+    android:id="@+id/encryption_decryption"
+    android:title="@string/encryption_decryption"/>
+
+  <item
     android:id="@+id/encryption"
     android:title="@string/encryption"/>
 

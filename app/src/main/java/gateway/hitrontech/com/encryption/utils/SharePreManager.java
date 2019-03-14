@@ -3,6 +3,8 @@ package gateway.hitrontech.com.encryption.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import gateway.hitrontech.com.encryption.R;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class SharePreManager {
 
@@ -11,7 +13,7 @@ public class SharePreManager {
   private static final String CIPHER_TEXT = "CIPHER_TEXT";
   private static SharePreManager sPreManager;
   private static SharedPreferences sSharedPre;
-  private final String mPassword = "password";
+  private static final String mPassword = "password";
 
   private SharePreManager() {
   }
@@ -27,19 +29,19 @@ public class SharePreManager {
     return sPreManager;
   }
 
-//  public void updatePwd(String pwd) {
-//    SharedPreferences.Editor editor = sSharedPre.edit();
-//    if (getPwd() != null) {
-//      getPwd().add(pwd);
-//    }
-//    editor.putStringSet(mPassword, getPwd());
-//    editor.apply();
-//    editor.clear();
-//  }
+  public static Set<String> getPwd() {
+    return sSharedPre.getStringSet(mPassword, new TreeSet<String>());
+  }
 
-//  public static Set<String> getPwd() {
-//    return sSharedPre.getStringSet(mPassword, new TreeSet<String>());
-//  }
+  public void updatePwd(String pwd) {
+    SharedPreferences.Editor editor = sSharedPre.edit();
+    if (getPwd() != null) {
+      getPwd().add(pwd);
+    }
+    editor.putStringSet(mPassword, getPwd());
+    editor.apply();
+    editor.clear();
+  }
 
   public String getAppId() {
     return WhichContext.getInstance().getString(R.string.applicationId);

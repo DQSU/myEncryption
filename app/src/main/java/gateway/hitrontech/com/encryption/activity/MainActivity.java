@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import com.hitrontech.hitronencryption.EncryptionManager;
 import gateway.hitrontech.com.encryption.R;
+import gateway.hitrontech.com.encryption.utils.SharePreManager;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
   }
 
   private void initView() {
-    mChangeCleartextBtn = findViewById(R.id.changeClearText);
+    mChangeCleartextBtn = findViewById(R.id.changePlainText);
     mChangeCleartextBtn.setOnClickListener(this);
     mPlainText = findViewById(R.id.plaintext);
     mPasswordText = findViewById(R.id.password);
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     mPasswordLayout = findViewById(R.id.passwordLayout);
     mPwdSpinner = findViewById(R.id.pwdSpinner);
 
-    // mPasswordList = new ArrayList<>(SharePreManager.getInstance(this).getPwd());
+    mPasswordList = new ArrayList<>(SharePreManager.getInstance().getPwd());
     mArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_selectable_list_item,
         mPasswordList);
     mArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
           mPwdSpinner.setVisibility(View.GONE);
         }
         break;
-      case R.id.changeClearText:
+      case R.id.changePlainText:
         if (mPlainText.getText().toString().equals(getString(R.string.test_number))) {
           mPlainText.setText(getString(R.string.ht_security_key));
         } else {
