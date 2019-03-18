@@ -5,6 +5,7 @@ import android.support.annotation.StringRes
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.ViewGroup
+import android.widget.Toast
 import moe.xing.baseutils.utils.LogHelper
 
 
@@ -69,9 +70,12 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun showMessage(message: String) {
-        val viewGroup = (this
-                .findViewById(android.R.id.content) as ViewGroup).getChildAt(0) as ViewGroup
-        LogHelper.Snackbar(viewGroup, message)
+        val viewGroup = (this.findViewById(android.R.id.content) as ViewGroup).getChildAt(0) as ViewGroup
+        if (message.length > 15) {
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        } else {
+            LogHelper.Snackbar(viewGroup, message)
+        }
     }
 
     fun showMessage(e: Throwable) {

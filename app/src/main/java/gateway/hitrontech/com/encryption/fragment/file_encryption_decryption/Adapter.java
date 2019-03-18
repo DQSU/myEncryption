@@ -13,7 +13,6 @@ import gateway.hitrontech.com.encryption.R;
 import gateway.hitrontech.com.encryption.bean.EncryptionBean;
 import gateway.hitrontech.com.encryption.databinding.ItemPlainTextBinding;
 import gateway.hitrontech.com.encryption.fragment.file_encryption_decryption.Adapter.ViewHolder;
-import gateway.hitrontech.com.encryption.utils.Constants;
 import gateway.hitrontech.com.encryption.utils.SharePreManager;
 import io.reactivex.functions.Consumer;
 import java.util.ArrayList;
@@ -55,13 +54,13 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
 
     private ItemPlainTextBinding binding;
 
-    public ViewHolder(@NonNull View itemView) {
+    ViewHolder(@NonNull View itemView) {
       super(itemView);
       binding = DataBindingUtil.findBinding(itemView);
     }
 
     @SuppressLint("CheckResult")
-    void bindViewHolder(EncryptionBean item) {
+    void bindViewHolder(final EncryptionBean item) {
       binding.setBean(item);
       RxView.clicks(binding.decryption)
           .subscribe(new Consumer<Object>() {
@@ -70,10 +69,22 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
               binding.decryptionText.setText(
                   EncryptionManager.getInstance().base64DecoderByAppId(
                       SharePreManager.getInstance().getAppId(),
-                      Constants.KEY,
+                      item.getKey(),
                       binding.cipherText.getText().toString()
                   )
               );
+            }
+          });
+
+      RxView.clicks(binding.encryption)
+          .subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) throws Exception {
+              item.setCipherText(EncryptionManager.getInstance().base64EncoderByAppId(
+                  SharePreManager.getInstance().getAppId(),
+                  item.getKey(),
+                  item.getPlainText()
+              ));
             }
           });
     }

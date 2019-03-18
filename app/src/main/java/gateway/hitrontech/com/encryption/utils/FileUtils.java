@@ -1,12 +1,15 @@
 package gateway.hitrontech.com.encryption.utils;
 
 import android.os.Environment;
+import java.io.File;
 
 public class FileUtils {
 
   static final String ORIGIN = "origin";
 
   static final String TARGET = "target";
+
+  static final String RESULT = "result";
 
   public static String getCachePath() {
 
@@ -19,17 +22,26 @@ public class FileUtils {
 
   }
 
+  public static String getResultPath() {
+    File result = new File(getCachePath().replace("cache", "") + "/" + RESULT);
+    if (!result.exists()) {
+      result.mkdir();
+    }
+    return result.getPath();
+  }
+
+
   public static String getOrigin() {
-    return getCachePath() + "/" + ORIGIN;
+    return getResultPath() + "/" + ORIGIN;
   }
 
   public static String getTarget() {
-    return getCachePath() + "/" + TARGET;
+    return getResultPath() + "/" + TARGET;
   }
 
 
   public static String getTargetXls() {
-    return getCachePath() + "/" + TARGET + ".xls";
+    return getResultPath() + "/" + TARGET + ".xls";
   }
 
 }
