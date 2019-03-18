@@ -64,7 +64,9 @@ public class ExcelFile implements FileImpl {
       header.setRowStyle(style);
       Cell plainText = header.createCell(0);
       plainText.setCellValue("PlainText");
-      Cell cipherText = header.createCell(2);
+      Cell key = header.createCell(2);
+      key.setCellValue("KEY");
+      Cell cipherText = header.createCell(4);
       cipherText.setCellValue("CipherText");
 
       for (EncryptionBean bean : list) {
@@ -72,7 +74,9 @@ public class ExcelFile implements FileImpl {
         Cell first = row.createCell(0);
         first.setCellValue(bean.getPlainText());
         Cell second = row.createCell(2);
-        second.setCellValue(bean.getCipherText());
+        second.setCellValue(bean.getKey());
+        Cell third = row.createCell(4);
+        third.setCellValue(bean.getCipherText());
       }
 
       FileOutputStream fileOutputStream = new FileOutputStream(filePath);

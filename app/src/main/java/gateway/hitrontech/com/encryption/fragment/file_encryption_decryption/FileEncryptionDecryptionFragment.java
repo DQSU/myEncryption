@@ -27,6 +27,8 @@ public class FileEncryptionDecryptionFragment extends BaseFragment implements Co
 
   private Adapter mAdapter = new Adapter();
 
+  private boolean isFirst = true;
+
   public static Fragment getInstance() {
     Fragment fragment = new FileEncryptionDecryptionFragment();
     Bundle args = new Bundle();
@@ -58,21 +60,6 @@ public class FileEncryptionDecryptionFragment extends BaseFragment implements Co
 
       mPresenter.start();
 
-      RxView.clicks(mBinding.generatePlainText)
-          .subscribe(new Consumer<Object>() {
-            @Override
-            public void accept(Object o) throws Exception {
-              mPresenter.generatePlainText(15);
-            }
-          });
-
-      RxView.clicks(mBinding.encryption)
-          .subscribe(new Consumer<Object>() {
-            @Override
-            public void accept(Object o) throws Exception {
-              mPresenter.encryption();
-            }
-          });
 
       RxView.clicks(mBinding.writeCipherText)
           .subscribe(new Consumer<Object>() {
@@ -92,8 +79,10 @@ public class FileEncryptionDecryptionFragment extends BaseFragment implements Co
 
   @Override
   public void setList(ArrayList<EncryptionBean> list) {
-    System.out.println("list set");
-    mAdapter.setList(list);
+    if (isFirst) {
+      isFirst = false;
+      this.mAdapter.setList(list);
+    }
   }
 
   @Override

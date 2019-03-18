@@ -57,7 +57,7 @@ public class Presenter implements Contract.Presenter {
       EncryptionBean tmp = new EncryptionBean();
       tmp.setPlainText(data);
       tmp.setCipherText("");
-      tmp.setDecryptionText("");
+      tmp.setKey("");
       beanList.add(tmp);
     }
 
@@ -77,7 +77,7 @@ public class Presenter implements Contract.Presenter {
       );
     }
 
-    mView.setList(beanList);
+//    mView.setList(beanList);
     mView.showMessage("已生成密文");
   }
 
@@ -92,6 +92,17 @@ public class Presenter implements Contract.Presenter {
         file = new ExcelFile();
       default:
         break;
+    }
+
+    // 将未加密的明文全部加密
+    for (EncryptionBean item : beanList) {
+      item.setCipherText(
+          EncryptionManager.getInstance().base64EncoderByAppId(
+              SharePreManager.getInstance().getAppId(),
+              item.getKey(),
+              item.getPlainText()
+          )
+      );
     }
 
     final FileImpl finalFile = file;

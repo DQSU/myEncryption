@@ -20,8 +20,28 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/padding"
-      android:text="@{bean.plainText}"
+      android:text="@={bean.plainText}"
+      tools:text="@string/plainText"
       tools:lines="5"/>
+
+    <android.support.v7.widget.AppCompatEditText
+      android:id="@+id/key"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@={bean.key}"
+      tools:text="@string/key"/>
+
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+      <Button
+        android:id="@+id/encryption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/button"
+        android:text="@string/encryption"/>
+    </RelativeLayout>
 
     <android.support.v7.widget.AppCompatEditText
       android:id="@+id/cipherText"
@@ -29,7 +49,8 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/padding"
       android:enabled="false"
-      android:text="@{bean.cipherText}"
+      android:text="@={bean.cipherText}"
+      tools:text="@string/cipherText"
       tools:lines="5"/>
 
     <RelativeLayout
