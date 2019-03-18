@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import org.apache.commons.lang3.RandomStringUtils;
 import rx.Observable;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -111,6 +113,7 @@ public class Presenter implements Contract.Presenter {
         .flatMap(new Func1<Integer, Observable<?>>() {
           @Override
           public Observable<?> call(Integer integer) {
+            assert finalFile != null;
             finalFile.writeFile(beanList,
                 (type == 0) ? FileUtils.getOrigin() : FileUtils.getTargetXls());
 
@@ -150,16 +153,27 @@ public class Presenter implements Contract.Presenter {
           }
         })
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Action1<ArrayList<EncryptionBean>>() {
+        .subscribe(new Subscriber<ArrayList<EncryptionBean>>() {
           @Override
-          public void call(ArrayList<EncryptionBean> data) {
-            if (data.isEmpty()) {
-              mView.showMessage("暂无文件，请生成明文");
+          public void onCompleted() {
+
+          }
+
+          @Override
+          public void onError(Throwable e) {
+            mView.showMessage("暂无文件，请将.xls文件放到" + FileUtils.getResultPath());
+          }
+
+          @Override
+          public void onNext(ArrayList<EncryptionBean> list) {
+            if (list.isEmpty()) {
+              mView.showMessage("暂无文件，请将.xls文件放到" + FileUtils.getResultPath());
             } else {
-              mView.setList(data);
+              mView.setList(list);
               mView.showMessage("已加载明文");
             }
           }
+
         });
   }
 
@@ -169,6 +183,17 @@ public class Presenter implements Contract.Presenter {
     beanList.clear();
     int type = Contract.EXCEL_FILE;
     readFile(type);
+//    generateFile();
+//    toFile(Contract.EXCEL_FILE);
+  }
+
+  private void generateFile() {
+    beanList.clear();
+    for (int i = 0; i < 15; i++) {
+      EncryptionBean item = new EncryptionBean();
+      item.setPlainText(RandomStringUtils.random(16));
+      beanList.add(item);
+    }
   }
 
 
