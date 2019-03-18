@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.kryst.njit.base.BaseFragment;
-import gateway.hitrontech.com.encryption.EncryptionBean;
 import gateway.hitrontech.com.encryption.R;
+import gateway.hitrontech.com.encryption.bean.EncryptionBean;
 import gateway.hitrontech.com.encryption.databinding.FragmentFileEncryptionDecryptionBinding;
 import io.reactivex.functions.Consumer;
 import java.util.ArrayList;
@@ -78,7 +78,7 @@ public class FileEncryptionDecryptionFragment extends BaseFragment implements Co
           .subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
-              mPresenter.toFile();
+              mPresenter.toFile(Contract.EXCEL_FILE);
             }
           });
     }

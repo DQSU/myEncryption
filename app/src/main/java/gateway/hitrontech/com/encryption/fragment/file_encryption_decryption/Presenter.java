@@ -1,27 +1,21 @@
 package gateway.hitrontech.com.encryption.fragment.file_encryption_decryption;
 
-import android.util.Log;
 import com.hitrontech.hitronencryption.EncryptionManager;
-import gateway.hitrontech.com.encryption.EncryptionBean;
+import gateway.hitrontech.com.encryption.bean.EncryptionBean;
+import gateway.hitrontech.com.encryption.fragment.file_encryption_decryption.File.CommonFile;
+import gateway.hitrontech.com.encryption.fragment.file_encryption_decryption.File.ExcelFile;
+import gateway.hitrontech.com.encryption.fragment.file_encryption_decryption.File.FileImpl;
 import gateway.hitrontech.com.encryption.utils.Constants;
 import gateway.hitrontech.com.encryption.utils.FileUtils;
 import gateway.hitrontech.com.encryption.utils.SharePreManager;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -88,38 +82,71 @@ public class Presenter implements Contract.Presenter {
   }
 
   @Override
-  public void toFile() {
-    (new File(FileUtils.getTarget())).delete();
-    Observable.just(beanList)
+  public void toFile(final int type) {
+    FileImpl file = null;
+    switch (type) {
+      case Contract.COMMON_FILE:
+        file = new CommonFile();
+        break;
+      case Contract.EXCEL_FILE:
+        file = new ExcelFile();
+      default:
+        break;
+    }
+
+    final FileImpl finalFile = file;
+    Observable.just(type)
         .subscribeOn(Schedulers.io())
-        .flatMap(new Func1<ArrayList<EncryptionBean>, Observable<Boolean>>() {
+        .flatMap(new Func1<Integer, Observable<?>>() {
           @Override
-          public Observable<Boolean> call(ArrayList<EncryptionBean> encryptionBeans) {
-            try {
-              BufferedWriter bufferedWriter = new BufferedWriter(
-                  new FileWriter(new File(FileUtils.getTarget())));
+          public Observable<?> call(Integer integer) {
+            finalFile.writeFile(beanList,
+                (type == 0) ? FileUtils.getOrigin() : FileUtils.getTargetXls());
 
-              for (EncryptionBean item : beanList) {
-                bufferedWriter.append(item.getPlainText()).append("\n");
-                bufferedWriter.append(item.getCipherText()).append("\n\n");
-              }
+            return Observable.just(null).observeOn(Schedulers.io());
+          }
+        }).observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Action1<Object>() {
+          @Override
+          public void call(Object o) {
+            mView.showMessage("已存到文件");
+          }
+        });
+  }
 
-              bufferedWriter.flush();
-              bufferedWriter.close();
+  @Override
+  public void readFile(final int type) {
+    FileImpl file = null;
+    switch (type) {
+      case Contract.COMMON_FILE:
+        file = new CommonFile();
+        break;
+      case Contract.EXCEL_FILE:
+        file = new ExcelFile();
+      default:
+        break;
+    }
 
-            } catch (IOException e) {
-              e.printStackTrace();
-            }
-
-            return Observable.just(true).observeOn(Schedulers.io());
+    final FileImpl finalFile = file;
+    Observable.just(type)
+        .subscribeOn(Schedulers.io())
+        .flatMap(new Func1<Integer, Observable<ArrayList<EncryptionBean>>>() {
+          @Override
+          public Observable<ArrayList<EncryptionBean>> call(Integer integer) {
+            finalFile
+                .readFile(beanList, (type == 0) ? FileUtils.getOrigin() : FileUtils.getTargetXls());
+            return Observable.just(beanList).observeOn(Schedulers.io());
           }
         })
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Action1<Boolean>() {
+        .subscribe(new Action1<ArrayList<EncryptionBean>>() {
           @Override
-          public void call(Boolean aBoolean) {
-            if (aBoolean) {
-              mView.showMessage("已写入文件");
+          public void call(ArrayList<EncryptionBean> data) {
+            if (data.isEmpty()) {
+              mView.showMessage("暂无文件，请生成明文");
+            } else {
+              mView.setList(data);
+              mView.showMessage("已加载明文");
             }
           }
         });
@@ -129,55 +156,15 @@ public class Presenter implements Contract.Presenter {
   @Override
   public void start() {
     beanList.clear();
-
-    if ((new File(FileUtils.getOrigin()).exists())) {
-      readOrigin();
-    }
-
-    // write2Xls();
+    int type = Contract.EXCEL_FILE;
+    readFile(type);
   }
 
-  private void readOrigin() {
-    Observable.just(beanList)
-        .subscribeOn(Schedulers.io())
-        .flatMap(new Func1<ArrayList<EncryptionBean>, Observable<ArrayList<EncryptionBean>>>() {
-          @Override
-          public Observable<ArrayList<EncryptionBean>> call(
-              ArrayList<EncryptionBean> encryptionBeans) {
-            try {
-              BufferedReader bufferedReader = new BufferedReader(
-                  new FileReader(FileUtils.getOrigin()));
-              String line;
-              while ((line = bufferedReader.readLine()) != null) {
-                if (!line.equals("")) {
-                  EncryptionBean tmp = new EncryptionBean();
-                  tmp.setPlainText(line);
-                  beanList.add(tmp);
-                }
-              }
 
-              bufferedReader.close();
-            } catch (IOException e) {
-              e.printStackTrace();
-            }
-            return Observable.just(beanList).observeOn(Schedulers.io());
-          }
-        }).observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Action1<ArrayList<EncryptionBean>>() {
-          @Override
-          public void call(ArrayList<EncryptionBean> o) {
-            if (!o.isEmpty()) {
-              mView.setList(o);
-              mView.showMessage("已加载明文");
-            }
-          }
-        });
-  }
-
-  private String getRandomString(int length) { //length表示生成字符串的长度
+  private String getRandomString(int length) {
 
     Random random = new Random();
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
     for (int i = 0; i < length; i++) {
       int number = random.nextInt(BASE.length());
       sb.append(BASE.charAt(number));
@@ -197,7 +184,7 @@ public class Presenter implements Contract.Presenter {
                   new FileWriter(FileUtils.getOrigin()));
 
               for (String item : list) {
-                bufferedWriter.append(item + "\n\n");
+                bufferedWriter.append(item).append("\n\n");
               }
               bufferedWriter.flush();
               bufferedWriter.close();
@@ -218,42 +205,4 @@ public class Presenter implements Contract.Presenter {
         });
   }
 
-
-  private void write2Xls() {
-    Observable.just(new File(FileUtils.getTargetXls()))
-        .subscribeOn(Schedulers.io())
-        .flatMap(new Func1<File, Observable<?>>() {
-          @Override
-          public Observable<?> call(File file) {
-            try {
-              if (!file.exists()) {
-                file.createNewFile();
-              }
-
-              Workbook workbook = new HSSFWorkbook();
-              Sheet sheet = workbook.createSheet("origin");
-
-              Row headerRow = sheet.createRow(0);
-
-              Cell cell = headerRow.createCell(0);
-              cell.setCellValue("are you ok?");
-
-              FileOutputStream fileOutputStream = new FileOutputStream(FileUtils.getTargetXls());
-              workbook.write(fileOutputStream);
-              fileOutputStream.close();
-              workbook.cloneSheet(0);
-            } catch (IOException e) {
-              e.printStackTrace();
-            }
-
-            return null;
-          }
-        }).observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Action1<Object>() {
-          @Override
-          public void call(Object o) {
-            Log.e("", "yes");
-          }
-        });
-  }
 }
