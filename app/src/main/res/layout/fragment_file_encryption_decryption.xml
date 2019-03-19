@@ -22,6 +22,14 @@
           android:layout_alignParentStart="true"
           android:background="@drawable/button"
           android:text="@string/write"/>
+
+        <Button
+          android:id="@+id/readFile"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentEnd="true"
+          android:background="@drawable/button"
+          android:text="@string/readFile"/>
       </RelativeLayout>
 
       <android.support.v7.widget.RecyclerView

@@ -60,12 +60,19 @@ public class FileEncryptionDecryptionFragment extends BaseFragment implements Co
 
       mPresenter.start();
 
-
       RxView.clicks(mBinding.writeCipherText)
           .subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
               mPresenter.toFile(Contract.EXCEL_FILE);
+            }
+          });
+
+      RxView.clicks(mBinding.readFile)
+          .subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) throws Exception {
+              mPresenter.readFile(Contract.EXCEL_FILE);
             }
           });
     }
