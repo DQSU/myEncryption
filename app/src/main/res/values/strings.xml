@@ -18,4 +18,5 @@
   <string name="generatePlainText">生成明文</string>
   <string name="write">写到文件</string>
   <string name="file_encryption_decryption">文件加密/解密</string>
+  <string name="readFile">读取文件</string>
 </resources>

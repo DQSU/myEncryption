@@ -123,7 +123,7 @@ public class Presenter implements Contract.Presenter {
         .subscribe(new Action1<Object>() {
           @Override
           public void call(Object o) {
-            mView.showMessage("已存到文件");
+            mView.showMessage("文件已存到" + FileUtils.getTargetXls());
           }
         });
   }
@@ -170,7 +170,7 @@ public class Presenter implements Contract.Presenter {
               mView.showMessage("暂无文件，请将.xls文件放到" + FileUtils.getResultPath());
             } else {
               mView.setList(list);
-              mView.showMessage("已加载明文");
+              mView.showMessage("已从文件" + FileUtils.getTargetXls() + "中读取文件");
             }
           }
 
@@ -235,7 +235,7 @@ public class Presenter implements Contract.Presenter {
           @Override
           public void call(Boolean result) {
             if (result) {
-              mView.showMessage("已生成明文");
+              mView.showMessage("已从文件" + FileUtils.getTargetXls() + "中读取文件");
             }
           }
         });
