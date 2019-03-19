@@ -183,8 +183,8 @@ public class Presenter implements Contract.Presenter {
     beanList.clear();
     int type = Contract.EXCEL_FILE;
     readFile(type);
-    generateFile();
-    toFile(Contract.EXCEL_FILE);
+//    generateFile();
+//    toFile(Contract.EXCEL_FILE);
   }
 
   private void generateFile() {
