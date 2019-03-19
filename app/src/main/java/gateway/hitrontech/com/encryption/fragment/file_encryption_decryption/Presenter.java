@@ -7,6 +7,7 @@ import gateway.hitrontech.com.encryption.fragment.file_encryption_decryption.Fil
 import gateway.hitrontech.com.encryption.fragment.file_encryption_decryption.File.FileImpl;
 import gateway.hitrontech.com.encryption.utils.Constants;
 import gateway.hitrontech.com.encryption.utils.FileUtils;
+import gateway.hitrontech.com.encryption.utils.RandomStringUtils;
 import gateway.hitrontech.com.encryption.utils.SharePreManager;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import org.apache.commons.lang3.RandomStringUtils;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -183,15 +183,15 @@ public class Presenter implements Contract.Presenter {
     beanList.clear();
     int type = Contract.EXCEL_FILE;
     readFile(type);
-//    generateFile();
-//    toFile(Contract.EXCEL_FILE);
+    generateFile();
+    toFile(Contract.EXCEL_FILE);
   }
 
   private void generateFile() {
     beanList.clear();
     for (int i = 0; i < 15; i++) {
       EncryptionBean item = new EncryptionBean();
-      item.setPlainText(RandomStringUtils.random(16));
+      item.setPlainText(RandomStringUtils.getInstance(Constants.JAPAN).getRandomString(15));
       beanList.add(item);
     }
   }
