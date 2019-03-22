@@ -19,4 +19,8 @@
     android:id="@+id/decryption"
     android:title="@string/decryption"/>
 
+  <item
+    android:id="@+id/about"
+    android:title="@string/about"/>
+
 </menu>

@@ -5,14 +5,13 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.jakewharton.rxbinding2.view.RxView
 import gateway.hitrontech.com.encryption.R
 import gateway.hitrontech.com.encryption.base.BaseFragment
 import gateway.hitrontech.com.encryption.bean.EncryptionBean
 import gateway.hitrontech.com.encryption.databinding.FragmentFileEncryptionDecryptionBinding
+import gateway.hitrontech.com.encryption.fragment.add_item.AddItemFragment
 import java.util.*
 
 class FileEncryptionDecryptionFragment : BaseFragment(), Contract.View {
@@ -68,6 +67,20 @@ class FileEncryptionDecryptionFragment : BaseFragment(), Contract.View {
     override fun setPresenter(presenter: Contract.Presenter) {
         this.mPresenter = presenter
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater!!.inflate(R.menu.menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item!!.itemId == R.id.add) {
+            replaceFragment(AddItemFragment.getInstance(mAdapter.getList()), true)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
 
     companion object {
 

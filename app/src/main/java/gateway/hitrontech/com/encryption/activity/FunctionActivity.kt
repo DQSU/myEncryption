@@ -9,6 +9,7 @@ import android.view.MenuItem
 import gateway.hitrontech.com.encryption.R
 import gateway.hitrontech.com.encryption.base.BaseActivity
 import gateway.hitrontech.com.encryption.databinding.ActivityFunctionBinding
+import gateway.hitrontech.com.encryption.fragment.about.AboutFragment
 import gateway.hitrontech.com.encryption.fragment.decryption.DecryptionFragment
 import gateway.hitrontech.com.encryption.fragment.encryption.EncryptionFragment
 import gateway.hitrontech.com.encryption.fragment.encryption_decryption.EncryptionDecryptionFragment
@@ -50,16 +51,20 @@ class FunctionActivity : BaseActivity() {
             "解密" -> replaceFragment(DecryptionFragment.instance)
             "加密/解密" -> replaceFragment(EncryptionDecryptionFragment.instance)
             "文件加密/解密" -> replaceFragment(FileEncryptionDecryptionFragment.instance)
+            "关于" -> replaceFragment(AboutFragment.getInstance())
             else -> {
             }
         }
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    override fun replaceFragment(fragment: Fragment, addToBackStack: Boolean) {
         val fragmentManager = supportFragmentManager
         val transaction = fragmentManager.beginTransaction()
         transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
         transaction.replace(R.id.function_interface, fragment)
+        if (addToBackStack) {
+            transaction.addToBackStack(null)
+        }
         transaction.commit()
         closeDrawer()
     }
@@ -77,7 +82,7 @@ class FunctionActivity : BaseActivity() {
             else -> {
             }
         }
-        return true
+        return false
     }
 
     private fun openDrawer() {

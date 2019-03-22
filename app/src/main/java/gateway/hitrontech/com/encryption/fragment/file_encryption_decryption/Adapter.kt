@@ -24,6 +24,8 @@ internal class Adapter : RecyclerView.Adapter<ViewHolder>() {
         notifyDataSetChanged()
     }
 
+    internal fun getList() = beanList
+
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<ItemPlainTextBinding>(

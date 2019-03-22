@@ -26,6 +26,7 @@ abstract class BaseFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        setHasOptionsMenu(true)
         mRootView = createView(inflater, container, savedInstanceState)
         assert(mRootView != null)
         viewFound(mRootView!!)
@@ -104,4 +105,9 @@ abstract class BaseFragment : Fragment() {
             onBackPressedSupport()
         }
     }
+
+    fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = false) {
+        mActivity.replaceFragment(fragment, addToBackStack)
+    }
+
 }
