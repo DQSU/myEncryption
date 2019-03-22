@@ -1,4 +1,4 @@
-package com.kryst.njit.base
+package gateway.hitrontech.com.encryption.base
 
 import android.app.ProgressDialog
 import android.support.annotation.StringRes
