@@ -55,7 +55,7 @@ class FileEncryptionDecryptionFragment : BaseFragment(), Contract.View, Adapter.
     }
 
     override fun setList(list: ArrayList<EncryptionBean>) {
-            this.mAdapter.setList(list)
+        this.mAdapter.setList(list)
     }
 
     override fun setPresenter(presenter: Contract.Presenter) {
@@ -90,5 +90,6 @@ class FileEncryptionDecryptionFragment : BaseFragment(), Contract.View, Adapter.
     override fun remove(data: EncryptionBean, list: ArrayList<EncryptionBean>) {
         list.remove(data)
         setList(list)
+        showMessage("已删除")
     }
 }

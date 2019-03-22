@@ -49,8 +49,9 @@ class AddItemFragment : BaseFragment(), Contract.View {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
             R.id.commit -> {
-                mPresenter.duplicateCheck(data, list)
-                onBackPressedSupport()
+                if (mPresenter.duplicateCheck(data, list)) {
+                    onBackPressedSupport()
+                }
             }
         }
         return super.onOptionsItemSelected(item)
