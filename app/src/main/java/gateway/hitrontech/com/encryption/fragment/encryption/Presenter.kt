@@ -15,6 +15,7 @@ class Presenter(private val mView: Contract.View) : Contract.Presenter {
     }
 
     override fun getEncryptionText(plainText: String) {
+        mView.showProgressDialog()
         Observable.just(plainText)
                 .subscribeOn(Schedulers.io())
                 .flatMap { text ->
@@ -25,7 +26,10 @@ class Presenter(private val mView: Contract.View) : Contract.Presenter {
                     )).observeOn(Schedulers.io())
                 }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { s -> mView.setEncryptionText(s) }
+                .subscribe { s ->
+                    mView.dismissProgressDialog()
+                    mView.setEncryptionText(s)
+                }
     }
 
     override fun start() {

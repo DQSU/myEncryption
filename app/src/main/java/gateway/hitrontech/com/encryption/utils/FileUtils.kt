@@ -36,6 +36,6 @@ object FileUtils {
 
 
     val targetXls: String
-        get() = "$resultPath/$TARGET.xls"
+        get() = "$resultPath/$TARGET.xlsx"
 
 }

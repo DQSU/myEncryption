@@ -1,8 +1,8 @@
 package gateway.hitrontech.com.encryption.fragment.file_encryption_decryption.File
 
 import gateway.hitrontech.com.encryption.bean.EncryptionBean
-import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.ss.usermodel.IndexedColors
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -16,7 +16,7 @@ class ExcelFile : FileImpl {
         if (file.exists()) {
             try {
                 val fileInputStream = FileInputStream(file)
-                val workbook = HSSFWorkbook(fileInputStream)
+                val workbook = XSSFWorkbook(fileInputStream)
                 val sheet = workbook.getSheetAt(0)
                 val iterator = sheet.iterator()
 
@@ -43,7 +43,7 @@ class ExcelFile : FileImpl {
 
     override fun writeFile(list: ArrayList<EncryptionBean>, filePath: String) {
         try {
-            val workbook = HSSFWorkbook()
+            val workbook = XSSFWorkbook()
             val sheet = workbook.createSheet("TARGET")
 
             var rowNumber = 0
@@ -54,7 +54,7 @@ class ExcelFile : FileImpl {
             val header = sheet.createRow(rowNumber++)
             val style = workbook.createCellStyle()
             style.setFont(font)
-            header.setRowStyle(style)
+            header.rowStyle = style
             val plainText = header.createCell(0)
             plainText.setCellValue("PlainText")
             val key = header.createCell(2)

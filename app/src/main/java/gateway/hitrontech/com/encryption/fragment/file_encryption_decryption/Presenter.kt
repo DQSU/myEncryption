@@ -42,6 +42,7 @@ class Presenter internal constructor(private val mView: Contract.View) : Contrac
         }
 
         val finalFile = file
+        mView.showProgressDialog()
         Observable.just(type)
                 .subscribeOn(Schedulers.io())
                 .flatMap {
@@ -51,7 +52,10 @@ class Presenter internal constructor(private val mView: Contract.View) : Contrac
 
                     Observable.just<Any>(null).observeOn(Schedulers.io())
                 }.observeOn(AndroidSchedulers.mainThread())
-                .subscribe { mView.showMessage("文件已存到" + FileUtils.targetXls) }
+                .subscribe {
+                    mView.showMessage("文件已存到" + FileUtils.targetXls)
+                    mView.dismissProgressDialog()
+                }
     }
 
     override fun readFile(type: Int) {
@@ -64,6 +68,8 @@ class Presenter internal constructor(private val mView: Contract.View) : Contrac
         }
 
         val finalFile = file
+
+        mView.showProgressDialog()
         Observable.just(type)
                 .subscribeOn(Schedulers.io())
                 .flatMap {
@@ -78,16 +84,17 @@ class Presenter internal constructor(private val mView: Contract.View) : Contrac
                     }
 
                     override fun onError(e: Throwable) {
-                        mView.showMessage("暂无文件，请将.xls文件放到" + FileUtils.resultPath)
+                        mView.showMessage("暂无文件，请将.xlsx文件放到" + FileUtils.resultPath)
                     }
 
                     override fun onNext(list: ArrayList<EncryptionBean>) {
                         if (list.isEmpty()) {
-                            mView.showMessage("暂无文件，请将.xls文件放到" + FileUtils.resultPath)
+                            mView.showMessage("暂无文件，请将.xlsx文件放到" + FileUtils.resultPath)
                         } else {
                             mView.setList(list)
                             mView.showMessage("已从文件" + FileUtils.targetXls + "中读取文件")
                         }
+                        mView.dismissProgressDialog()
                     }
 
                 })

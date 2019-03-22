@@ -15,7 +15,7 @@ import gateway.hitrontech.com.encryption.fragment.file_encryption_decryption.Ada
 import gateway.hitrontech.com.encryption.utils.SharePreManager
 import java.util.*
 
-internal class Adapter : RecyclerView.Adapter<ViewHolder>() {
+internal class Adapter(private val event: ItemEvent) : RecyclerView.Adapter<ViewHolder>() {
 
     private var beanList = ArrayList<EncryptionBean>()
 
@@ -70,7 +70,15 @@ internal class Adapter : RecyclerView.Adapter<ViewHolder>() {
                                 item.plainText
                         )
                     }
+
+            RxView.clicks(binding.delete)
+                    .subscribe {
+                        event.remove(item, getList())
+                    }
         }
     }
 
+    interface ItemEvent {
+        fun remove(data: EncryptionBean, list: ArrayList<EncryptionBean>)
+    }
 }

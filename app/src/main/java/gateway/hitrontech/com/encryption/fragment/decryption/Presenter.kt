@@ -11,6 +11,7 @@ class Presenter(private val mView: Contract.View) : Contract.Presenter {
     }
 
     override fun getPlainText(cipherText: String) {
+        mView.showProgressDialog()
         mView.setPlainText(
                 EncryptionManager.instance
                         .base64DecoderByAppId(
@@ -18,10 +19,13 @@ class Presenter(private val mView: Contract.View) : Contract.Presenter {
                                 Constants.KEY,
                                 cipherText
                         )!!)
+        mView.dismissProgressDialog()
     }
 
     override fun getCipherText() {
+        mView.showProgressDialog()
         mView.setCipherText(SharePreManager.instance.cipherText!!)
+        mView.dismissProgressDialog()
     }
 
     override fun start() {

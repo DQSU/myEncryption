@@ -14,15 +14,12 @@ import gateway.hitrontech.com.encryption.databinding.FragmentFileEncryptionDecry
 import gateway.hitrontech.com.encryption.fragment.add_item.AddItemFragment
 import java.util.*
 
-class FileEncryptionDecryptionFragment : BaseFragment(), Contract.View {
-
+class FileEncryptionDecryptionFragment : BaseFragment(), Contract.View, Adapter.ItemEvent {
     private var mBinding: FragmentFileEncryptionDecryptionBinding? = null
 
     private var mPresenter: Contract.Presenter? = null
 
-    private val mAdapter = Adapter()
-
-    private var isFirst = true
+    private val mAdapter = Adapter(this)
 
     override fun createView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View {
@@ -58,10 +55,7 @@ class FileEncryptionDecryptionFragment : BaseFragment(), Contract.View {
     }
 
     override fun setList(list: ArrayList<EncryptionBean>) {
-        if (isFirst) {
-            isFirst = false
             this.mAdapter.setList(list)
-        }
     }
 
     override fun setPresenter(presenter: Contract.Presenter) {
@@ -80,9 +74,8 @@ class FileEncryptionDecryptionFragment : BaseFragment(), Contract.View {
         return super.onOptionsItemSelected(item)
     }
 
-
-
     companion object {
+
 
         val instance: Fragment
             get() {
@@ -91,5 +84,11 @@ class FileEncryptionDecryptionFragment : BaseFragment(), Contract.View {
                 fragment.arguments = args
                 return fragment
             }
+
+    }
+
+    override fun remove(data: EncryptionBean, list: ArrayList<EncryptionBean>) {
+        list.remove(data)
+        setList(list)
     }
 }
