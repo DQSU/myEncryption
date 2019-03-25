@@ -41,7 +41,7 @@ public class FileUtils {
 
 
   public static String getTargetXls() {
-    return getResultPath() + "/" + TARGET + ".xls";
+    return getResultPath() + "/" + TARGET + ".xlsx";
   }
 
 }

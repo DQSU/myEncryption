@@ -12,17 +12,27 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/padding"
     android:padding="@dimen/padding"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:background="@color/white"
     android:orientation="vertical">
+
+    <android.support.v7.widget.AppCompatImageView
+      android:id="@+id/remove"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="end"
+      android:src="@drawable/ico_delete"/>
 
     <android.support.v7.widget.AppCompatEditText
       android:id="@+id/plainText"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/padding"
+      android:focusedByDefault="false"
       android:text="@={bean.plainText}"
-      tools:text="@string/plainText"
-      tools:lines="5"/>
+      tools:lines="5"
+      tools:text="@string/plainText"/>
 
     <android.support.v7.widget.AppCompatEditText
       android:id="@+id/key"
@@ -50,8 +60,8 @@
       android:layout_marginTop="@dimen/padding"
       android:enabled="false"
       android:text="@={bean.cipherText}"
-      tools:text="@string/cipherText"
-      tools:lines="5"/>
+      tools:lines="5"
+      tools:text="@string/cipherText"/>
 
     <RelativeLayout
       android:layout_width="match_parent"

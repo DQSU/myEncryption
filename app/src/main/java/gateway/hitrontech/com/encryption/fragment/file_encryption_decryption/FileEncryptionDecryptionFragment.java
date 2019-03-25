@@ -7,27 +7,30 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import com.jakewharton.rxbinding2.view.RxView;
-import com.kryst.njit.base.BaseFragment;
 import gateway.hitrontech.com.encryption.R;
+import gateway.hitrontech.com.encryption.base.BaseFragment;
 import gateway.hitrontech.com.encryption.bean.EncryptionBean;
 import gateway.hitrontech.com.encryption.databinding.FragmentFileEncryptionDecryptionBinding;
+import gateway.hitrontech.com.encryption.fragment.add_item.AddItemFragment;
 import io.reactivex.functions.Consumer;
 import java.util.ArrayList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FileEncryptionDecryptionFragment extends BaseFragment implements Contract.View {
+public class FileEncryptionDecryptionFragment extends BaseFragment implements Contract.View,
+    Adapter.ItemEvent {
 
   private FragmentFileEncryptionDecryptionBinding mBinding;
 
   private Contract.Presenter mPresenter;
 
-  private Adapter mAdapter = new Adapter();
-
-  private boolean isFirst = true;
+  private Adapter mAdapter = new Adapter(this);
 
   public static Fragment getInstance() {
     Fragment fragment = new FileEncryptionDecryptionFragment();
@@ -75,6 +78,7 @@ public class FileEncryptionDecryptionFragment extends BaseFragment implements Co
               mPresenter.readFile(Contract.EXCEL_FILE);
             }
           });
+
     }
   }
 
@@ -86,14 +90,36 @@ public class FileEncryptionDecryptionFragment extends BaseFragment implements Co
 
   @Override
   public void setList(ArrayList<EncryptionBean> list) {
-    if (isFirst) {
-      isFirst = false;
-      this.mAdapter.setList(list);
-    }
+    this.mAdapter.setList(list);
   }
 
   @Override
   public void setPresenter(@NonNull Contract.Presenter presenter) {
     this.mPresenter = presenter;
   }
+
+  @Override
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.add, menu);
+    super.onCreateOptionsMenu(menu, inflater);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.add_item: {
+        replaceFragment(AddItemFragment.getInstance(mAdapter.getList()), true);
+      }
+
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  public void remove(EncryptionBean item, ArrayList<EncryptionBean> list) {
+    list.remove(item);
+    setList(list);
+    showMessage("已删除");
+  }
+
 }

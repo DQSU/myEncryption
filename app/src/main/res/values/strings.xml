@@ -19,4 +19,8 @@
   <string name="write">写到文件</string>
   <string name="file_encryption_decryption">文件加密/解密</string>
   <string name="readFile">读取文件</string>
+  <string name="ok">OK</string>
+  <string name="file_path">文件路径</string>
+  <string name="tips_file">请将文件放置到上述目录下！</string>
+  <string name="about">关于</string>
 </resources>

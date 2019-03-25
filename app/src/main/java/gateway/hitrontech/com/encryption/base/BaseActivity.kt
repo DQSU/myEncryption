@@ -1,15 +1,17 @@
-package com.kryst.njit.base
+package gateway.hitrontech.com.encryption.base
 
 import android.app.ProgressDialog
 import android.support.annotation.StringRes
+import android.support.design.widget.Snackbar
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.ViewGroup
-import android.widget.Toast
-import moe.xing.baseutils.utils.LogHelper
+import android.widget.TextView
+import gateway.hitrontech.com.encryption.R
 
 
-open class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
     private var mDialog: ProgressDialog? = null
 
     fun showProgressDialog() {
@@ -71,11 +73,12 @@ open class BaseActivity : AppCompatActivity() {
 
     fun showMessage(message: String) {
         val viewGroup = (this.findViewById(android.R.id.content) as ViewGroup).getChildAt(0) as ViewGroup
-        if (message.length > 15) {
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-        } else {
-            LogHelper.Snackbar(viewGroup, message)
-        }
+        val snackBar = Snackbar.make(viewGroup, message, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.ok) {}
+
+        snackBar.view.findViewById<TextView>(android.support.design.R.id.snackbar_text).maxLines = 5
+        snackBar.show()
+
     }
 
     fun showMessage(e: Throwable) {
@@ -90,6 +93,8 @@ open class BaseActivity : AppCompatActivity() {
     fun showMessage(@StringRes message: Int, message2: String) {
         showMessage(getString(message) + message2)
     }
+
+    abstract fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = false)
 
 
 }

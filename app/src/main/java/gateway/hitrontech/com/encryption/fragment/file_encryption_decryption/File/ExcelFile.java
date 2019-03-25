@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -15,6 +14,7 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelFile implements FileImpl {
 
@@ -24,7 +24,7 @@ public class ExcelFile implements FileImpl {
     if (file.exists()) {
       try {
         FileInputStream fileInputStream = new FileInputStream(file);
-        Workbook workbook = new HSSFWorkbook(fileInputStream);
+        Workbook workbook = new XSSFWorkbook(fileInputStream);
         Sheet sheet = workbook.getSheetAt(0);
         Iterator<Row> iterator = sheet.iterator();
 
@@ -50,7 +50,7 @@ public class ExcelFile implements FileImpl {
   @Override
   public void writeFile(ArrayList<EncryptionBean> list, String filePath) {
     try {
-      Workbook workbook = new HSSFWorkbook();
+      Workbook workbook = new XSSFWorkbook();
       Sheet sheet = workbook.createSheet("TARGET");
 
       int rowNumber = 0;

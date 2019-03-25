@@ -1,4 +1,4 @@
-package com.kryst.njit.base
+package gateway.hitrontech.com.encryption.base
 
 import android.app.Activity
 import android.content.Context
@@ -26,6 +26,7 @@ abstract class BaseFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        setHasOptionsMenu(true)
         mRootView = createView(inflater, container, savedInstanceState)
         assert(mRootView != null)
         viewFound(mRootView!!)
@@ -103,5 +104,9 @@ abstract class BaseFragment : Fragment() {
         } else {
             onBackPressedSupport()
         }
+    }
+
+    fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = false) {
+        mActivity.replaceFragment(fragment, addToBackStack)
     }
 }
