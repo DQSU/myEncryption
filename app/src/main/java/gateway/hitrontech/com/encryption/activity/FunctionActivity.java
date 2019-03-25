@@ -93,7 +93,7 @@ public class FunctionActivity extends BaseActivity {
       default:
         break;
     }
-    return true;
+    return false;
   }
 
   private void openDrawer() {

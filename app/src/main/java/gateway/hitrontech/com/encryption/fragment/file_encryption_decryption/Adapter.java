@@ -26,6 +26,10 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
     notifyDataSetChanged();
   }
 
+  ArrayList<EncryptionBean> getList() {
+    return beanList;
+  }
+
 
   @NonNull
   @Override

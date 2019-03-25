@@ -54,4 +54,15 @@ public class EncryptionBean extends BaseObservable {
       notifyPropertyChanged(BR.key);
     }
   }
+
+  @Override
+  public boolean equals(Object obj) {
+
+    if (obj instanceof EncryptionBean) {
+      return ((EncryptionBean) obj).plainText.equals(this.plainText) &&
+          ((EncryptionBean) obj).key.equals(this.key);
+    } else {
+      return false;
+    }
+  }
 }
