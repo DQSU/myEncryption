@@ -14,9 +14,6 @@ public interface Contract {
 
   interface Presenter extends BasePresenter {
 
-    void generatePlainText(int number);
-
-    void encryption();
 
     void toFile(int type);
 

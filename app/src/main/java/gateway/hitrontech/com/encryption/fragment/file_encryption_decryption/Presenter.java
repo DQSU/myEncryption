@@ -10,11 +10,9 @@ import gateway.hitrontech.com.encryption.utils.FileUtils;
 import gateway.hitrontech.com.encryption.utils.RandomStringUtils;
 import gateway.hitrontech.com.encryption.utils.SharePreManager;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import rx.Observable;
@@ -39,48 +37,6 @@ public class Presenter implements Contract.Presenter {
   Presenter(Contract.View view) {
     this.mView = view;
     this.mView.setPresenter(this);
-  }
-
-  @Override
-  public void generatePlainText(int number) {
-
-    beanList.clear();
-
-    File file = new File(FileUtils.getCachePath() + "/" + ORIGIN);
-    file.delete();
-
-    List<String> list = new LinkedList<>();
-
-    for (int i = 0; i < number; i++) {
-      String data = getRandomString((new Random().nextInt(number))) + getRandomString(
-          (new Random().nextInt(number)));
-      list.add(data);
-
-      EncryptionBean tmp = new EncryptionBean();
-      tmp.setPlainText(data);
-      tmp.setCipherText("");
-      tmp.setKey("");
-      beanList.add(tmp);
-    }
-
-    writePlainText(list);
-    mView.setList(beanList);
-  }
-
-  @Override
-  public void encryption() {
-    for (EncryptionBean item : beanList) {
-      item.setCipherText(
-          EncryptionManager.getInstance().base64EncoderByAppId(
-              SharePreManager.getInstance().getAppId(),
-              Constants.KEY,
-              item.getPlainText()
-          )
-      );
-    }
-
-//    mView.setList(beanList);
-    mView.showMessage("已生成密文");
   }
 
   @Override
@@ -142,6 +98,7 @@ public class Presenter implements Contract.Presenter {
     }
 
     final FileImpl finalFile = file;
+    mView.showProgressDialog();
     Observable.just(type)
         .subscribeOn(Schedulers.io())
         .flatMap(new Func1<Integer, Observable<ArrayList<EncryptionBean>>>() {
@@ -172,6 +129,7 @@ public class Presenter implements Contract.Presenter {
               mView.setList(list);
               mView.showMessage("已从文件" + FileUtils.getTargetXls() + "中读取文件");
             }
+            mView.dismissProgressDialog();
           }
 
         });

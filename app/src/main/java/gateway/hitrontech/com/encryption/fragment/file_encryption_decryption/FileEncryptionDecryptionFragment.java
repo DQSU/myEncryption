@@ -78,6 +78,7 @@ public class FileEncryptionDecryptionFragment extends BaseFragment implements Co
               mPresenter.readFile(Contract.EXCEL_FILE);
             }
           });
+
     }
   }
 
@@ -89,7 +90,7 @@ public class FileEncryptionDecryptionFragment extends BaseFragment implements Co
 
   @Override
   public void setList(ArrayList<EncryptionBean> list) {
-      this.mAdapter.setList(list);
+    this.mAdapter.setList(list);
   }
 
   @Override
@@ -120,4 +121,5 @@ public class FileEncryptionDecryptionFragment extends BaseFragment implements Co
     setList(list);
     showMessage("已删除");
   }
+
 }

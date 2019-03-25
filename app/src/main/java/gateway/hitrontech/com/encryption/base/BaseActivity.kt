@@ -1,19 +1,18 @@
 package gateway.hitrontech.com.encryption.base
 
+import android.app.ProgressDialog
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.view.View
+import android.text.TextUtils
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.ProgressBar
 import android.widget.TextView
 import gateway.hitrontech.com.encryption.R
 
 
 abstract class BaseActivity : AppCompatActivity() {
-    private var mDialog: ProgressBar? = null
+    private var mDialog: ProgressDialog? = null
 
     fun showProgressDialog() {
         showProgressDialog("")
@@ -25,7 +24,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun dismissProgressDialog() {
         if (mDialog != null) {
-            mDialog!!.visibility = View.VISIBLE
+            mDialog!!.dismiss()
             mDialog = null
         }
     }
@@ -35,40 +34,40 @@ abstract class BaseActivity : AppCompatActivity() {
         dismissProgressDialog()
     }
 
-    private fun dismiss() {
-        mDialog!!.visibility = View.GONE;
-
-    }
-
-    private fun show() {
-        mDialog!!.visibility = View.VISIBLE
-        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-    }
-
-
     fun showProgressDialog(title: String, now: Int?, max: Int?) {
+        var mTitle = title
         if (now == null && mDialog != null) {
-            dismiss()
+            mDialog!!.dismiss()
             mDialog = null
         }
         if (mDialog == null) {
-            mDialog = ProgressBar(this)
+            mDialog = ProgressDialog(this)
         }
         if (now != null && max != null) {
             if (mDialog!!.isIndeterminate) {
-                dismiss()
-                mDialog = ProgressBar(this)
+                mDialog!!.dismiss()
+                mDialog = ProgressDialog(this)
             }
-
+            mDialog!!.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
             if (mDialog!!.max == 100 && max != 100) {
                 mDialog!!.max = max
             }
             mDialog!!.progress = now
         }
 
-        if (!mDialog!!.isShown) {
-            show()
+        if (!mDialog!!.isShowing) {
+
+            val params = mDialog!!.window!!
+                    .attributes
+            params.dimAmount = 0f
+            mDialog!!.window!!.attributes = params
+
+            if (TextUtils.isEmpty(mTitle)) {
+                mTitle = "加载中..."
+            }
+            mDialog!!.setTitle(mTitle)
+            mDialog!!.setCancelable(false)
+            mDialog!!.show()
         }
     }
 
