@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.view.MenuItem;
@@ -18,6 +17,7 @@ import gateway.hitrontech.com.encryption.fragment.encryption.EncryptionFragment;
 import gateway.hitrontech.com.encryption.fragment.encryption_decryption.EncryptionDecryptionFragment;
 import gateway.hitrontech.com.encryption.fragment.file_encryption_decryption.FileEncryptionDecryptionFragment;
 import java.util.concurrent.TimeUnit;
+import org.jetbrains.annotations.NotNull;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -49,7 +49,7 @@ public class FunctionActivity extends BaseActivity {
           }
         });
 
-    replaceFragment(FileEncryptionDecryptionFragment.getInstance());
+    replaceFragment(FileEncryptionDecryptionFragment.getInstance(), false);
   }
 
   @SuppressLint("ResourceType")
@@ -57,30 +57,22 @@ public class FunctionActivity extends BaseActivity {
     // todo international
     switch (title) {
       case "加密":
-        replaceFragment(EncryptionFragment.getInstance());
+        replaceFragment(EncryptionFragment.getInstance(), false);
         break;
       case "解密":
-        replaceFragment(DecryptionFragment.getInstance());
+        replaceFragment(DecryptionFragment.getInstance(), false);
         break;
       case "加密/解密":
-        replaceFragment(EncryptionDecryptionFragment.getInstance());
+        replaceFragment(EncryptionDecryptionFragment.getInstance(), false);
         break;
       case "文件加密/解密":
-        replaceFragment(FileEncryptionDecryptionFragment.getInstance());
+        replaceFragment(FileEncryptionDecryptionFragment.getInstance(), false);
         break;
       default:
         break;
     }
   }
 
-  private void replaceFragment(Fragment fragment) {
-    FragmentManager fragmentManager = getSupportFragmentManager();
-    FragmentTransaction transaction = fragmentManager.beginTransaction();
-    transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-    transaction.replace(R.id.function_interface, fragment);
-    transaction.commit();
-    closeDrawer();
-  }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
@@ -139,5 +131,18 @@ public class FunctionActivity extends BaseActivity {
             mBinding.drawer.closeDrawers();
           }
         });
+  }
+
+  @Override
+  public void replaceFragment(@NotNull Fragment fragment, boolean addToBackStack) {
+    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+    transaction.replace(R.id.function_interface, fragment);
+    if (addToBackStack) {
+      transaction.addToBackStack(null);
+    }
+
+    transaction.commit();
+    closeDrawer();
   }
 }

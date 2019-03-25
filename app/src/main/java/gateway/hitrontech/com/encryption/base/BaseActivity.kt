@@ -3,6 +3,7 @@ package com.kryst.njit.base
 import android.app.ProgressDialog
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import android.widget.TextView
 import gateway.hitrontech.com.encryption.R
 
 
-open class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
     private var mDialog: ProgressDialog? = null
 
     fun showProgressDialog() {
@@ -92,6 +93,8 @@ open class BaseActivity : AppCompatActivity() {
     fun showMessage(@StringRes message: Int, message2: String) {
         showMessage(getString(message) + message2)
     }
+
+    abstract fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = false)
 
 
 }

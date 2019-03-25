@@ -104,4 +104,8 @@ abstract class BaseFragment : Fragment() {
             onBackPressedSupport()
         }
     }
+
+    fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = false) {
+        mActivity.replaceFragment(fragment, addToBackStack)
+    }
 }
