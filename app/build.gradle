@@ -59,8 +59,7 @@ dependencies {
     implementation 'com.github.Qixingchen:MVP-Utils:V1.1.9'
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.android.support:design:28.0.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation 'org.jsoup:jsoup:1.11.3'
+
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     implementation "com.github.akarnokd:rxjava2-interop:0.13.0"
