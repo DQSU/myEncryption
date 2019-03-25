@@ -9,9 +9,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.view.MenuItem;
-import com.kryst.njit.base.BaseActivity;
 import gateway.hitrontech.com.encryption.R;
+import gateway.hitrontech.com.encryption.base.BaseActivity;
 import gateway.hitrontech.com.encryption.databinding.ActivityFunctionBinding;
+import gateway.hitrontech.com.encryption.fragment.about.AboutFragment;
 import gateway.hitrontech.com.encryption.fragment.decryption.DecryptionFragment;
 import gateway.hitrontech.com.encryption.fragment.encryption.EncryptionFragment;
 import gateway.hitrontech.com.encryption.fragment.encryption_decryption.EncryptionDecryptionFragment;
@@ -68,6 +69,8 @@ public class FunctionActivity extends BaseActivity {
       case "文件加密/解密":
         replaceFragment(FileEncryptionDecryptionFragment.getInstance(), false);
         break;
+      case "关于":
+        replaceFragment(AboutFragment.getInstance(), false);
       default:
         break;
     }

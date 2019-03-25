@@ -1,4 +1,4 @@
-package com.kryst.njit.base
+package gateway.hitrontech.com.encryption.base
 
 import android.app.Activity
 import android.content.Context
