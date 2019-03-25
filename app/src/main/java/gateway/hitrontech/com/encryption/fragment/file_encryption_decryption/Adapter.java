@@ -21,6 +21,12 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
 
   private ArrayList<EncryptionBean> beanList = new ArrayList<>();
 
+  private ItemEvent itemEvent;
+
+  public Adapter(ItemEvent event) {
+    this.itemEvent = event;
+  }
+
   void setList(ArrayList<EncryptionBean> list) {
     this.beanList = list;
     notifyDataSetChanged();
@@ -53,6 +59,13 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
   public int getItemCount() {
     return beanList.size();
   }
+
+
+  interface ItemEvent {
+
+    void remove(EncryptionBean item, ArrayList<EncryptionBean> list);
+  }
+
 
   class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -89,6 +102,14 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
                   item.getKey(),
                   item.getPlainText()
               ));
+            }
+          });
+
+      RxView.clicks(binding.remove)
+          .subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) throws Exception {
+              itemEvent.remove(item, getList());
             }
           });
     }

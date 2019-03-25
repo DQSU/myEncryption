@@ -23,15 +23,14 @@ import java.util.ArrayList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FileEncryptionDecryptionFragment extends BaseFragment implements Contract.View {
+public class FileEncryptionDecryptionFragment extends BaseFragment implements Contract.View,
+    Adapter.ItemEvent {
 
   private FragmentFileEncryptionDecryptionBinding mBinding;
 
   private Contract.Presenter mPresenter;
 
-  private Adapter mAdapter = new Adapter();
-
-  private boolean isFirst = true;
+  private Adapter mAdapter = new Adapter(this);
 
   public static Fragment getInstance() {
     Fragment fragment = new FileEncryptionDecryptionFragment();
@@ -90,10 +89,7 @@ public class FileEncryptionDecryptionFragment extends BaseFragment implements Co
 
   @Override
   public void setList(ArrayList<EncryptionBean> list) {
-    if (isFirst) {
-      isFirst = false;
       this.mAdapter.setList(list);
-    }
   }
 
   @Override
@@ -116,5 +112,12 @@ public class FileEncryptionDecryptionFragment extends BaseFragment implements Co
 
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  public void remove(EncryptionBean item, ArrayList<EncryptionBean> list) {
+    list.remove(item);
+    setList(list);
+    showMessage("已删除");
   }
 }
