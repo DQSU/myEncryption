@@ -7,8 +7,9 @@ import android.databinding.Bindable;
 import android.util.Log;
 import gateway.hitrontech.com.encryption.BR;
 import gateway.hitrontech.com.encryption.utils.Constants;
+import java.io.Serializable;
 
-public class EncryptionBean extends BaseObservable {
+public class EncryptionBean extends BaseObservable implements Serializable {
 
   private String plainText = "";
 
