@@ -13,8 +13,6 @@ import gateway.hitrontech.com.encryption.R;
 import gateway.hitrontech.com.encryption.base.BaseActivity;
 import gateway.hitrontech.com.encryption.databinding.ActivityFunctionBinding;
 import gateway.hitrontech.com.encryption.fragment.about.AboutFragment;
-import gateway.hitrontech.com.encryption.fragment.decryption.DecryptionFragment;
-import gateway.hitrontech.com.encryption.fragment.encryption.EncryptionFragment;
 import gateway.hitrontech.com.encryption.fragment.encryption_decryption.EncryptionDecryptionFragment;
 import gateway.hitrontech.com.encryption.fragment.file_encryption_decryption.FileEncryptionDecryptionFragment;
 import java.util.concurrent.TimeUnit;
@@ -57,12 +55,6 @@ public class FunctionActivity extends BaseActivity {
   private void DrawerItemClick(String title) {
     // todo international
     switch (title) {
-      case "加密":
-        replaceFragment(EncryptionFragment.getInstance(), false);
-        break;
-      case "解密":
-        replaceFragment(DecryptionFragment.getInstance(), false);
-        break;
       case "加密/解密":
         replaceFragment(EncryptionDecryptionFragment.getInstance(), false);
         break;

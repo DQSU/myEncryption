@@ -11,13 +11,6 @@
     android:id="@+id/encryption_decryption"
     android:title="@string/encryption_decryption"/>
 
-  <item
-    android:id="@+id/encryption"
-    android:title="@string/encryption"/>
-
-  <item
-    android:id="@+id/decryption"
-    android:title="@string/decryption"/>
 
   <item
     android:id="@+id/about"
