@@ -43,7 +43,7 @@ public class FunctionActivity extends BaseActivity {
         new OnNavigationItemSelectedListener() {
           @Override
           public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            DrawerItemClick((String) menuItem.getTitle());
+            drawerItemClick((String) menuItem.getTitle());
             return true;
           }
         });
@@ -52,8 +52,8 @@ public class FunctionActivity extends BaseActivity {
   }
 
   @SuppressLint("ResourceType")
-  private void DrawerItemClick(String title) {
-    // todo international
+  private void drawerItemClick(String title) {
+
     switch (title) {
       case "加密/解密":
         replaceFragment(EncryptionDecryptionFragment.getInstance(), false);

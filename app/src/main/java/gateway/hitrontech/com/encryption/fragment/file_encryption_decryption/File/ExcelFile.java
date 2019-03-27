@@ -82,7 +82,7 @@ public class ExcelFile implements FileImpl {
       FileOutputStream fileOutputStream = new FileOutputStream(filePath);
       workbook.write(fileOutputStream);
       workbook.cloneSheet(0);
-
+      fileOutputStream.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
