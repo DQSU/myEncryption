@@ -5,16 +5,9 @@ import gateway.hitrontech.com.encryption.bean.EncryptionBean;
 import gateway.hitrontech.com.encryption.fragment.file_encryption_decryption.File.CommonFile;
 import gateway.hitrontech.com.encryption.fragment.file_encryption_decryption.File.ExcelFile;
 import gateway.hitrontech.com.encryption.fragment.file_encryption_decryption.File.FileImpl;
-import gateway.hitrontech.com.encryption.utils.Constants;
 import gateway.hitrontech.com.encryption.utils.FileUtils;
-import gateway.hitrontech.com.encryption.utils.RandomStringUtils;
 import gateway.hitrontech.com.encryption.utils.SharePreManager;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -24,11 +17,6 @@ import rx.schedulers.Schedulers;
 
 public class Presenter implements Contract.Presenter {
 
-  static final String ORIGIN = "origin";
-
-  static final String TARGET = "target";
-
-  static final String BASE = "abcdefghijklmnopqrstuvwxyz0123456789";
 
   private ArrayList<EncryptionBean> beanList = new ArrayList<>();
 
@@ -40,7 +28,9 @@ public class Presenter implements Contract.Presenter {
   }
 
   @Override
-  public void toFile(final int type) {
+  public void toFile(final int type, ArrayList<EncryptionBean> list) {
+    mView.showProgressDialog();
+    beanList = list;
     FileImpl file = null;
     switch (type) {
       case Contract.COMMON_FILE:
@@ -79,6 +69,8 @@ public class Presenter implements Contract.Presenter {
         .subscribe(new Action1<Object>() {
           @Override
           public void call(Object o) {
+            // Log.e("", "call: " + beanList.get(0).getCipherText());
+            mView.dismissProgressDialog();
             mView.showMessage("文件已存到" + FileUtils.getTargetXls());
           }
         });
@@ -104,27 +96,33 @@ public class Presenter implements Contract.Presenter {
         .flatMap(new Func1<Integer, Observable<ArrayList<EncryptionBean>>>() {
           @Override
           public Observable<ArrayList<EncryptionBean>> call(Integer integer) {
-            finalFile
-                .readFile(beanList, (type == 0) ? FileUtils.getOrigin() : FileUtils.getTargetXls());
-            return Observable.just(beanList).observeOn(Schedulers.io());
+            try {
+              beanList.clear();
+              finalFile
+                  .readFile(beanList,
+                      (type == 0) ? FileUtils.getOrigin() : FileUtils.getTargetXls());
+              return Observable.just(beanList).observeOn(Schedulers.io());
+            } catch (Exception e) {
+              return Observable.error(e);
+            }
           }
         })
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Subscriber<ArrayList<EncryptionBean>>() {
           @Override
           public void onCompleted() {
-
           }
 
           @Override
           public void onError(Throwable e) {
-            mView.showMessage("暂无文件，请将.xls文件放到" + FileUtils.getResultPath());
+            mView.showMessage("暂无文件，请将.xls文件放到" + FileUtils.getTargetXls());
+            mView.dismissProgressDialog();
           }
 
           @Override
           public void onNext(ArrayList<EncryptionBean> list) {
             if (list.isEmpty()) {
-              mView.showMessage("暂无文件，请将.xls文件放到" + FileUtils.getResultPath());
+              mView.showMessage("文件内容为空，请修改后将.xls文件放到" + FileUtils.getTargetXls());
             } else {
               mView.setList(list);
               mView.showMessage("已从文件" + FileUtils.getTargetXls() + "中读取文件");
@@ -141,62 +139,5 @@ public class Presenter implements Contract.Presenter {
     beanList.clear();
     int type = Contract.EXCEL_FILE;
     readFile(type);
-//    generateFile();
-//    toFile(Contract.EXCEL_FILE);
   }
-
-  private void generateFile() {
-    beanList.clear();
-    for (int i = 0; i < 15; i++) {
-      EncryptionBean item = new EncryptionBean();
-      item.setPlainText(RandomStringUtils.getInstance(Constants.JAPAN).getRandomString(15));
-      beanList.add(item);
-    }
-  }
-
-
-  private String getRandomString(int length) {
-
-    Random random = new Random();
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < length; i++) {
-      int number = random.nextInt(BASE.length());
-      sb.append(BASE.charAt(number));
-    }
-    return sb.toString();
-  }
-
-  private void writePlainText(List<String> list) {
-
-    Observable.just(list)
-        .subscribeOn(Schedulers.io())
-        .flatMap(new Func1<List<String>, Observable<Boolean>>() {
-          @Override
-          public Observable<Boolean> call(List<String> list) {
-            try {
-              BufferedWriter bufferedWriter = new BufferedWriter(
-                  new FileWriter(FileUtils.getOrigin()));
-
-              for (String item : list) {
-                bufferedWriter.append(item).append("\n\n");
-              }
-              bufferedWriter.flush();
-              bufferedWriter.close();
-            } catch (IOException e) {
-              e.printStackTrace();
-            }
-
-            return Observable.just(true).observeOn(Schedulers.io());
-          }
-        }).observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Action1<Boolean>() {
-          @Override
-          public void call(Boolean result) {
-            if (result) {
-              mView.showMessage("已从文件" + FileUtils.getTargetXls() + "中读取文件");
-            }
-          }
-        });
-  }
-
 }

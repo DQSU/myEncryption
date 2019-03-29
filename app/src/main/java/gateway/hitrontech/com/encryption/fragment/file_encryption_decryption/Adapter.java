@@ -23,7 +23,7 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
 
   private ItemEvent itemEvent;
 
-  public Adapter(ItemEvent event) {
+  Adapter(ItemEvent event) {
     this.itemEvent = event;
   }
 

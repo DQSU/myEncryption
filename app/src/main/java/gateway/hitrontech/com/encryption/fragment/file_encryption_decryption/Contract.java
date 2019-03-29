@@ -15,7 +15,7 @@ public interface Contract {
   interface Presenter extends BasePresenter {
 
 
-    void toFile(int type);
+    void toFile(int type, ArrayList<EncryptionBean> list);
 
     void readFile(int type);
 

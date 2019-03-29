@@ -24,7 +24,6 @@ public class EncryptionBean extends BaseObservable implements Serializable {
   }
 
   public void setPlainText(String plainText) {
-
     if (!this.plainText.equals(plainText)) {
       this.plainText = plainText;
       notifyPropertyChanged(BR.plainText);
