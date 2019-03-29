@@ -1,12 +1,16 @@
 package gateway.hitrontech.com.encryption.activity;
 
+import android.Manifest.permission;
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.view.MenuItem;
 import gateway.hitrontech.com.encryption.R;
@@ -30,7 +34,6 @@ public class FunctionActivity extends BaseActivity {
     super.onCreate(savedInstanceState);
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_function);
 
-    // set action bar
     setSupportActionBar(mBinding.toolBar);
     if (getSupportActionBar() != null) {
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -49,6 +52,7 @@ public class FunctionActivity extends BaseActivity {
         });
 
     replaceFragment(FileEncryptionDecryptionFragment.getInstance(), false);
+    checkPermission();
   }
 
   @SuppressLint("ResourceType")
@@ -94,12 +98,10 @@ public class FunctionActivity extends BaseActivity {
         .subscribe(new Subscriber<Long>() {
           @Override
           public void onCompleted() {
-
           }
 
           @Override
           public void onError(Throwable e) {
-
           }
 
           @Override
@@ -139,5 +141,16 @@ public class FunctionActivity extends BaseActivity {
 
     transaction.commit();
     closeDrawer();
+  }
+
+  private void checkPermission() {
+
+    String[] permissions = {permission.WRITE_EXTERNAL_STORAGE, permission.READ_EXTERNAL_STORAGE};
+
+    int STORAGE_CODE = 101;
+    if (ContextCompat.checkSelfPermission(this, permissions[0])
+        != PackageManager.PERMISSION_GRANTED) {
+      ActivityCompat.requestPermissions(this, permissions, STORAGE_CODE);
+    }
   }
 }

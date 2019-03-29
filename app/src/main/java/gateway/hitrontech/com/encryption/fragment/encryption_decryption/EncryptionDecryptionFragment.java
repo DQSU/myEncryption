@@ -53,7 +53,7 @@ public class EncryptionDecryptionFragment extends BaseFragment implements Contra
       RxView.clicks(mBinding.encryption)
           .subscribe(new Consumer<Object>() {
             @Override
-            public void accept(Object o) throws Exception {
+            public void accept(Object o) {
               mPresenter.getCipherText(
                   mBinding.key.getText().toString(),
                   mBinding.plainText.getText().toString()

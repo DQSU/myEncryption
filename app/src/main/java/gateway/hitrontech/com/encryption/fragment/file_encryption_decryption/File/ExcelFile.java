@@ -8,9 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -19,31 +16,28 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ExcelFile implements FileImpl {
 
   @Override
-  public void readFile(ArrayList<EncryptionBean> list, String filePath) {
+  public void readFile(ArrayList<EncryptionBean> list, String filePath) throws IOException {
     File file = new File(filePath);
     if (file.exists()) {
       try {
         FileInputStream fileInputStream = new FileInputStream(file);
         Workbook workbook = new XSSFWorkbook(fileInputStream);
         Sheet sheet = workbook.getSheetAt(0);
-        Iterator<Row> iterator = sheet.iterator();
 
-        int count = 0;
-        while (iterator.hasNext()) {
-          Row currentRow = iterator.next();
-          if (count != 0) {
-            Iterator<Cell> cellIterator = currentRow.iterator();
-            EncryptionBean tmp = new EncryptionBean();
-            tmp.setPlainText(cellIterator.next().getStringCellValue());
-            list.add(tmp);
-          }
-          count++;
+        for (Row currentRow : sheet) {
+          Iterator<Cell> cellIterator = currentRow.iterator();
+          EncryptionBean tmp = new EncryptionBean();
+          tmp.setPlainText(cellIterator.next().getStringCellValue());
+          tmp.setKey(cellIterator.next().getStringCellValue());
+          list.add(tmp);
         }
 
         fileInputStream.close();
       } catch (IOException e) {
         e.printStackTrace();
       }
+    } else {
+      throw new IOException();
     }
   }
 
@@ -54,32 +48,26 @@ public class ExcelFile implements FileImpl {
       Sheet sheet = workbook.createSheet("TARGET");
 
       int rowNumber = 0;
-      Font font = workbook.createFont();
-      font.setBoldweight((short) 16);
-      font.setFontHeight((short) 20);
-      font.setColor(IndexedColors.RED.getIndex());
-      Row header = sheet.createRow(rowNumber++);
-      CellStyle style = workbook.createCellStyle();
-      style.setFont(font);
-      header.setRowStyle(style);
-      Cell plainText = header.createCell(0);
-      plainText.setCellValue("PlainText");
-      Cell key = header.createCell(2);
-      key.setCellValue("KEY");
-      Cell cipherText = header.createCell(4);
-      cipherText.setCellValue("CipherText");
 
       for (EncryptionBean bean : list) {
         Row row = sheet.createRow(rowNumber++);
         Cell first = row.createCell(0);
         first.setCellValue(bean.getPlainText());
-        Cell second = row.createCell(2);
+
+        Cell second = row.createCell(1);
         second.setCellValue(bean.getKey());
-        Cell third = row.createCell(4);
+        Cell third = row.createCell(2);
         third.setCellValue(bean.getCipherText());
       }
 
       FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+      if (!list.isEmpty()) {
+        sheet.setColumnWidth(0, 50 * 255);
+        sheet.setColumnWidth(1,
+            (list.get(0).getKey().length() > 255 ? 255 : list.get(0).getKey().length())
+                * 255);
+        sheet.setColumnWidth(2, 50 * 255);
+      }
       workbook.write(fileOutputStream);
       workbook.cloneSheet(0);
       fileOutputStream.close();

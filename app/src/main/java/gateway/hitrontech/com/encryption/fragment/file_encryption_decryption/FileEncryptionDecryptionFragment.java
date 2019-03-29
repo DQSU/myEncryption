@@ -67,7 +67,7 @@ public class FileEncryptionDecryptionFragment extends BaseFragment implements Co
           .subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
-              mPresenter.toFile(Contract.EXCEL_FILE);
+              mPresenter.toFile(Contract.EXCEL_FILE, mAdapter.getList());
             }
           });
 

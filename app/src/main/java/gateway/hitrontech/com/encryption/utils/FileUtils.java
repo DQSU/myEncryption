@@ -23,7 +23,7 @@ public class FileUtils {
   }
 
   public static String getResultPath() {
-    File result = new File(getCachePath().replace("cache", "") + "/" + RESULT);
+    File result = new File(Environment.getExternalStorageDirectory().getPath() + "/" + RESULT);
     if (!result.exists()) {
       result.mkdir();
     }

@@ -34,7 +34,7 @@ public class EncryptionManager implements EncryptionImpl {
   @Override
   public String base64EncoderByAppId(String applicationId, String key, String text) {
     StringBuffer sb = new StringBuffer();
-    sb.append(applicationId);
+    // sb.append(applicationId);
     sb.append(key);
     String securityKey = sb.toString();
     return base64Encoder(securityKey, text);
@@ -59,7 +59,7 @@ public class EncryptionManager implements EncryptionImpl {
   @Override
   public String base64DecoderByAppId(String applicationId, String key, String encoderStr) {
     StringBuffer sb = new StringBuffer();
-    sb.append(applicationId);
+    // sb.append(applicationId);
     sb.append(key);
     String securityKey = sb.toString();
     return base64Decoder(securityKey, encoderStr);
