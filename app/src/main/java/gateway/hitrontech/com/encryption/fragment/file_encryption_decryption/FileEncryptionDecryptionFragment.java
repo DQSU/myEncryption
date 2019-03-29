@@ -58,6 +58,8 @@ public class FileEncryptionDecryptionFragment extends BaseFragment implements Co
     if (!getViewExisted()) {
       new Presenter(this);
 
+
+
       mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
       mBinding.recyclerView.setAdapter(mAdapter);
 

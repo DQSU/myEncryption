@@ -7,82 +7,88 @@
       name="bean"
       type="gateway.hitrontech.com.encryption.bean.EncryptionBean"/>
   </data>
-  <LinearLayout
+  <android.support.design.card.MaterialCardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/padding"
-    android:padding="@dimen/padding"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:background="@color/white"
-    android:orientation="vertical">
-
-    <android.support.v7.widget.AppCompatImageView
-      android:id="@+id/remove"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="end"
-      android:src="@drawable/ico_delete"/>
-
-    <android.support.v7.widget.AppCompatEditText
-      android:id="@+id/plainText"
+    android:layout_margin="@dimen/small_padding"
+    >
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/padding"
-      android:focusedByDefault="false"
-      android:text="@={bean.plainText}"
-      tools:lines="5"
-      tools:text="@string/plainText"/>
 
-    <android.support.v7.widget.AppCompatEditText
-      android:id="@+id/key"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@={bean.key}"
-      tools:text="@string/key"/>
+      android:background="@color/white"
+      android:focusable="true"
+      android:focusableInTouchMode="true"
+      android:orientation="vertical">
 
-    <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-      <Button
-        android:id="@+id/encryption"
+      <android.support.design.widget.FloatingActionButton
+        android:id="@+id/remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@drawable/button"
-        android:text="@string/encryption"/>
-    </RelativeLayout>
+        android:layout_marginEnd="@dimen/small_padding"
+        android:layout_marginTop="@dimen/small_padding"
+        android:layout_gravity="end"
+        android:src="@drawable/ico_delete"/>
 
-    <android.support.v7.widget.AppCompatEditText
-      android:id="@+id/cipherText"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/padding"
-      android:enabled="false"
-      android:text="@={bean.cipherText}"
-      tools:lines="5"
-      tools:text="@string/cipherText"/>
-
-    <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/padding">
-      <Button
-        android:id="@+id/decryption"
-        android:layout_width="wrap_content"
+      <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/plainText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@drawable/button"
-        android:text="@string/decryption"/>
-    </RelativeLayout>
+        android:layout_marginTop="@dimen/small_padding"
+        android:focusedByDefault="false"
+        android:text="@={bean.plainText}"
+        tools:lines="5"
+        tools:text="@string/plainText"/>
 
-    <TextView
-      android:id="@+id/decryptionText"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/padding"
-      tools:lines="5"/>
-  </LinearLayout>
+      <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/key"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@={bean.key}"
+        tools:text="@string/key"/>
 
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+          android:id="@+id/encryption"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"
+          style="@style/Widget.AppCompat.Button.Colored"
+          android:text="@string/encryption"/>
+      </RelativeLayout>
 
+      <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/cipherText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_padding"
+        android:enabled="false"
+        android:text="@={bean.cipherText}"
+        tools:lines="5"
+        tools:text="@string/cipherText"/>
+
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding">
+        <Button
+          android:id="@+id/decryption"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"
+          style="@style/Widget.AppCompat.Button.Colored"
+          android:text="@string/decryption"/>
+      </RelativeLayout>
+
+      <TextView
+        android:id="@+id/decryptionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_padding"
+        tools:lines="5"/>
+    </LinearLayout>
+
+  </android.support.design.card.MaterialCardView>
 </layout>

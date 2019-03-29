@@ -5,39 +5,40 @@
 
   </data>
 
-    <LinearLayout
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical">
+
+    <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:padding="@dimen/padding"
-      android:orientation="vertical">
+      android:layout_height="wrap_content"
+      android:padding="@dimen/padding">
 
-      <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-          android:id="@+id/writeCipherText"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentStart="true"
-          android:background="@drawable/button"
-          android:text="@string/write"/>
-
-        <Button
-          android:id="@+id/readFile"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentEnd="true"
-          android:background="@drawable/button"
-          android:text="@string/readFile"/>
-      </RelativeLayout>
-
-      <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
+      <Button
+        android:id="@+id/writeCipherText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/item_plain_text">
-      </android.support.v7.widget.RecyclerView>
+        android:layout_alignParentStart="true"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:text="@string/write"/>
 
-    </LinearLayout>
+      <Button
+        android:id="@+id/readFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:text="@string/readFile"/>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/recyclerView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:listitem="@layout/item_plain_text">
+    </android.support.v7.widget.RecyclerView>
+
+  </LinearLayout>
 </layout>
