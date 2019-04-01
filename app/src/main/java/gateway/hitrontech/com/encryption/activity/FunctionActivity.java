@@ -133,7 +133,7 @@ public class FunctionActivity extends BaseActivity {
   @Override
   public void replaceFragment(@NotNull Fragment fragment, boolean addToBackStack) {
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+    // transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
     transaction.replace(R.id.function_interface, fragment);
     if (addToBackStack) {
       transaction.addToBackStack(null);

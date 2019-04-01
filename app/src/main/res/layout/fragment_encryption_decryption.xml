@@ -34,7 +34,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_alignParentStart="true"
-          android:background="@drawable/button"
+          style="@style/Widget.AppCompat.Button.Colored"
           android:text="@string/encryption"/>
 
         <Button
@@ -42,7 +42,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_alignParentEnd="true"
-          android:background="@drawable/button"
+          style="@style/Widget.AppCompat.Button.Colored"
           android:text="@string/changeKey"/>
       </RelativeLayout>
 
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding"
         android:layout_marginLeft="@dimen/padding"
-        android:background="@drawable/button"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:text="@string/decryption"/>
 
       <LinearLayout
