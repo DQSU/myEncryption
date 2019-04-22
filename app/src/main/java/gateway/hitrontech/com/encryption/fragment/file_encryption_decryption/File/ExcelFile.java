@@ -27,8 +27,16 @@ public class ExcelFile implements FileImpl {
         for (Row currentRow : sheet) {
           Iterator<Cell> cellIterator = currentRow.iterator();
           EncryptionBean tmp = new EncryptionBean();
-          tmp.setPlainText(cellIterator.next().getStringCellValue());
-          tmp.setKey(cellIterator.next().getStringCellValue());
+          Cell plainCell = cellIterator.next();
+          Cell keyCell = cellIterator.next();
+          if (null == plainCell || null == keyCell) {
+            continue;
+          } else {
+            plainCell.setCellType(Cell.CELL_TYPE_STRING);
+            keyCell.setCellType(Cell.CELL_TYPE_STRING);
+          }
+          tmp.setPlainText(plainCell.getStringCellValue());
+          tmp.setKey(keyCell.getStringCellValue());
           list.add(tmp);
         }
 
@@ -39,6 +47,11 @@ public class ExcelFile implements FileImpl {
     } else {
       throw new IOException();
     }
+  }
+
+  private Cell setCellValueType(Cell cell) {
+    cell.setCellType(Cell.CELL_TYPE_STRING);
+    return cell;
   }
 
   @Override
